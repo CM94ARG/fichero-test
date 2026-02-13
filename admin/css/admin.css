@@ -726,3 +726,38 @@ body {
         flex-direction: column;
     }
 }
+
+/* ============================================
+   BOTÓN DE HISTORIAL EN TARJETAS DE EMPLEADOS
+   ============================================ */
+.empleado-actions {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.btn-historial {
+    background: white;
+    border: 2px solid #1a237e;
+    color: #1a237e;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.btn-historial:hover {
+    background: #1a237e;
+    color: white;
+}
+
+.btn-historial i {
+    font-size: 0.9rem;
+}
