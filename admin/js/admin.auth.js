@@ -3,6 +3,7 @@
 // ============================================
 const adminAuth = {
     inicializar() {
+        // ✅ USAR LA KEY DEL ADMIN, no la del fichaje
         const zonaGuardada = localStorage.getItem(ADMIN_CONFIG.STORAGE_KEYS.ZONA_ACTIVA);
         
         if (zonaGuardada) {
@@ -13,6 +14,23 @@ const adminAuth = {
         document.getElementById('password').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.loginZona();
         });
+        
+        // ✅ Generar device ID para admin si no existe
+        if (!localStorage.getItem(ADMIN_CONFIG.STORAGE_KEYS.DEVICE_ID)) {
+            this.generarDeviceId();
+        }
+    },
+
+    // ✅ NUEVA FUNCIÓN - Generar ID único para admin
+    generarDeviceId() {
+        const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+        const deviceId = `ADMIN_${uuid}`;
+        localStorage.setItem(ADMIN_CONFIG.STORAGE_KEYS.DEVICE_ID, deviceId);
+        return deviceId;
     },
 
     async loginZona() {
@@ -41,6 +59,18 @@ const adminAuth = {
             formData.append('zona', zonaId);
             formData.append('clave_acceso', password);
             
+            // ✅ ENVIAR device_id del admin
+            formData.append('device_id', localStorage.getItem(ADMIN_CONFIG.STORAGE_KEYS.DEVICE_ID) || this.generarDeviceId());
+            
+            // Obtener IP
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                formData.append('ip_publica', ipData.ip);
+            } catch (e) {
+                formData.append('ip_publica', 'No detectada');
+            }
+            
             const response = await fetch(ADMIN_CONFIG.API_URL, {
                 method: 'POST',
                 body: formData
@@ -55,8 +85,10 @@ const adminAuth = {
                     locales: data.franquicia.locales
                 };
                 
+                // ✅ GUARDAR CON LAS KEYS DEL ADMIN
                 localStorage.setItem(ADMIN_CONFIG.STORAGE_KEYS.ZONA_ACTIVA, 
                     JSON.stringify(window.zonaActiva));
+                localStorage.setItem(ADMIN_CONFIG.STORAGE_KEYS.DEVICE_REGISTERED, 'true');
                 
                 adminUI.showAdminPanel(window.zonaActiva);
                 adminEmpleados.cargarEmpleadosZona();
@@ -86,6 +118,7 @@ const adminAuth = {
         document.querySelector('.login-section h2').textContent = 'Sesión activa';
     },
 
+    // ✅ USAR LA KEY DEL ADMIN
     usarZonaGuardada() {
         const zonaGuardada = localStorage.getItem(ADMIN_CONFIG.STORAGE_KEYS.ZONA_ACTIVA);
         if (zonaGuardada) {
@@ -97,7 +130,11 @@ const adminAuth = {
 
     logout() {
         if (confirm('¿Cerrar sesión? Se borrará la zona guardada.')) {
+            // ✅ BORRAR SOLO LAS KEYS DEL ADMIN
             localStorage.removeItem(ADMIN_CONFIG.STORAGE_KEYS.ZONA_ACTIVA);
+            localStorage.removeItem(ADMIN_CONFIG.STORAGE_KEYS.DEVICE_REGISTERED);
+            localStorage.removeItem(ADMIN_CONFIG.STORAGE_KEYS.DEVICE_ID);
+            
             window.zonaActiva = null;
             window.empleadoSeleccionado = null;
             window.accionSeleccionada = null;
