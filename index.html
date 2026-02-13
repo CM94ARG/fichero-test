@@ -2,10 +2,12 @@
 <html>
 <head>
     <title>Sistema de Fichaje - Heladerías Daniel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 🟢 TU MISMO CSS - SIN CAMBIOS */
+        /* ============================================
+           TU MISMO CSS ORIGINAL - SIN CAMBIOS
+           ============================================ */
         :root {
             --primary: #666666;      
             --secondary: #FF66A8;   
@@ -21,7 +23,11 @@
             --shadow: rgba(0, 0, 0, 0.1);
         }
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -48,12 +54,25 @@
             color: white;
             padding: 30px 25px;
             text-align: center;
+            position: relative;
         }
         
-        .header h1 { font-size: 26px; margin-bottom: 8px; font-weight: 700; }
-        .header .subtitle { font-size: 15px; opacity: 0.9; font-weight: 300; }
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
         
-        .content { padding: 0 25px 25px; }
+        .header .subtitle {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 0 25px 25px;
+        }
         
         .logo {
             text-align: center;
@@ -63,18 +82,43 @@
         
         .logo-icon {
             background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
-            width: 70px; height: 70px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 0 auto 15px;
             box-shadow: 0 6px 20px rgba(255, 102, 168, 0.3);
         }
         
-        .logo-icon i { font-size: 32px; color: white; }
-        .logo h2 { color: var(--primary); font-size: 24px; margin-bottom: 5px; font-weight: 700; }
-        .logo p { color: var(--primary); font-size: 14px; opacity: 0.8; }
+        .logo-icon i {
+            font-size: 32px;
+            color: white;
+        }
         
-        .screen { display: none; }
-        .screen.active { display: block; animation: fadeIn 0.4s ease-out; }
+        .logo h2 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -103,7 +147,9 @@
             border-radius: 2px;
         }
         
-        /* 🟢 ESTILOS PARA ZONAS/FRANQUICIAS */
+        /* ============================================
+           PANTALLA DE SELECCIÓN DE ZONA (PRIMERA VEZ)
+           ============================================ */
         .zonas-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -148,44 +194,48 @@
             font-size: 14px;
         }
         
-        /* 🟢 PANTALLA DE LOGIN POR ZONA */
-        .login-box {
-            background: linear-gradient(135deg, rgba(102, 102, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
+        /* ============================================
+           PANTALLA DE CLAVE (PRIMERA VEZ)
+           ============================================ */
+        .clave-box {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.05) 0%, rgba(255, 193, 7, 0.03) 100%);
             border-radius: 16px;
             padding: 30px 25px;
             margin: 20px 0;
-            border-left: 5px solid var(--secondary);
+            border-left: 5px solid var(--warning);
             text-align: center;
         }
         
-        .login-box i {
+        .clave-box i {
             font-size: 50px;
-            color: var(--secondary);
+            color: var(--warning);
             margin-bottom: 15px;
         }
         
-        .login-box h2 {
-            color: var(--dark);
+        .clave-box h2 {
+            color: #856404;
             margin-bottom: 10px;
             font-size: 22px;
         }
         
-        .login-box p {
+        .clave-box p {
             color: #666;
             margin-bottom: 25px;
         }
         
-        .franquicia-nombre {
+        .zona-seleccionada {
             font-size: 24px;
             font-weight: 700;
-            color: var(--secondary);
+            color: var(--warning);
             margin-bottom: 20px;
         }
         
-        /* 🟢 MISMOS ESTILOS DE BOTONES Y FORMULARIOS */
-        .clave-input-container, .dni-input-container { position: relative; margin: 20px 0; }
+        .clave-input-container {
+            position: relative;
+            margin: 20px 0;
+        }
         
-        .clave-input, .dni-input {
+        .clave-input {
             width: 100%;
             padding: 18px 18px 18px 55px;
             font-size: 17px;
@@ -193,51 +243,40 @@
             border-radius: 14px;
             transition: all 0.3s;
             background: var(--light-gray);
+            color: var(--dark);
         }
         
-        .clave-input:focus, .dni-input:focus {
+        .clave-input:focus {
             outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(255,102,168,0.2);
+            border-color: var(--warning);
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
             background: white;
         }
         
-        .clave-input-container i, .dni-input-container i {
+        .clave-input-container i {
             position: absolute;
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--secondary);
+            color: var(--warning);
             font-size: 20px;
         }
         
-        .action-btn {
-            width: 100%;
-            padding: 17px;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(to right, var(--primary), #808080);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(102,102,102,0.25);
+        /* ============================================
+           PANTALLA PRINCIPAL (LOCALES)
+           ============================================ */
+        .zona-badge {
+            background: rgba(102,102,102,0.05);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 5px solid var(--secondary);
         }
         
-        .action-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(102,102,102,0.35);
-            background: linear-gradient(to right, #555555, #707070);
-        }
-        
-        .back-btn {
-            background: linear-gradient(to right, #999999, #aaaaaa);
-            margin-top: 15px;
+        .zona-badge span {
+            font-weight: 700;
+            color: var(--secondary);
         }
         
         .locales-grid {
@@ -261,6 +300,8 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
+            position: relative;
+            overflow: hidden;
             box-shadow: 0 3px 8px var(--shadow);
             border-left: 5px solid var(--primary);
         }
@@ -268,12 +309,13 @@
         .local-btn:hover:not(:disabled) {
             background: white;
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
         }
         
         .local-btn .icon {
-            background: rgba(102,102,102,0.1);
-            width: 45px; height: 45px;
+            background: rgba(102, 102, 102, 0.1);
+            width: 45px;
+            height: 45px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -281,34 +323,217 @@
             margin-right: 15px;
             font-size: 20px;
             color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .local-btn .local-info {
+            text-align: left;
+        }
+        
+        .local-btn .local-name {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: var(--dark);
+        }
+        
+        .local-btn .local-type {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 400;
+        }
+        
+        .salida-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--medium-gray);
+            position: relative;
+        }
+        
+        .salida-section::before {
+            content: "SALIDA";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--light);
+            padding: 0 15px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
         
         .salida-btn {
             border-left: 5px solid var(--accent);
-            background: linear-gradient(to right, rgba(255,51,102,0.05), rgba(255,51,102,0.02));
+            background: linear-gradient(to right, rgba(255, 51, 102, 0.05), rgba(255, 51, 102, 0.02));
         }
         
         .salida-btn .icon {
-            background: rgba(255,51,102,0.15);
+            background: rgba(255, 51, 102, 0.15);
             color: var(--accent);
         }
         
-        .salida-btn .local-name { color: var(--accent); }
+        .salida-btn .local-name {
+            color: var(--accent);
+        }
         
+        .salida-btn:hover:not(:disabled) {
+            background: linear-gradient(to right, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.05));
+        }
+        
+        /* ============================================
+           PANTALLA DE DNI
+           ============================================ */
         .local-info-card {
-            background: linear-gradient(135deg, rgba(102,102,102,0.05) 0%, rgba(255,102,168,0.03) 100%);
+            background: linear-gradient(135deg, rgba(102, 102, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
             padding: 20px;
             border-radius: 14px;
             text-align: center;
             margin-bottom: 25px;
             border: 1px solid var(--medium-gray);
+            position: relative;
+            overflow: hidden;
             border-left: 5px solid var(--primary);
         }
         
-        .local-info-card.salida { border-left-color: var(--accent); }
-        .local-info-card .local-name { font-size: 22px; font-weight: 700; color: var(--primary); }
-        .local-info-card.salida .local-name { color: var(--accent); }
+        .local-info-card.salida {
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
+            border-left-color: var(--accent);
+        }
         
+        .local-info-card h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .local-info-card .local-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .local-info-card.salida .local-name {
+            color: var(--accent);
+        }
+        
+        .local-info-card .fichaje-type {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        .local-info-card.salida .fichaje-type {
+            background: var(--accent);
+        }
+        
+        .input-group {
+            margin: 25px 0;
+        }
+        
+        .dni-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 15px;
+            text-align: center;
+        }
+        
+        .dni-input-container {
+            position: relative;
+        }
+        
+        .dni-input {
+            width: 100%;
+            padding: 18px 18px 18px 55px;
+            font-size: 17px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 14px;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 500;
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .dni-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(255, 102, 168, 0.2);
+            background: white;
+        }
+        
+        .dni-input-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+            font-size: 20px;
+        }
+        
+        /* ============================================
+           BOTONES
+           ============================================ */
+        .action-btn {
+            width: 100%;
+            padding: 17px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(to right, var(--primary), #808080);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(102, 102, 102, 0.25);
+        }
+        
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 102, 102, 0.35);
+            background: linear-gradient(to right, #555555, #707070);
+        }
+        
+        .action-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .action-btn i {
+            margin-right: 10px;
+            font-size: 17px;
+        }
+        
+        .back-btn {
+            background: linear-gradient(to right, #999999, #aaaaaa);
+            box-shadow: 0 4px 12px rgba(153, 153, 153, 0.25);
+            margin-top: 15px;
+        }
+        
+        .reset-btn {
+            background: linear-gradient(to right, #dc3545, #c82333);
+            margin-top: 20px;
+        }
+        
+        /* ============================================
+           MENSAJES
+           ============================================ */
         .message {
             padding: 18px;
             margin: 20px 0;
@@ -316,22 +541,51 @@
             text-align: center;
             font-size: 15px;
             display: none;
+            line-height: 1.5;
             border-left: 5px solid transparent;
         }
         
-        .message.success { background: rgba(76,175,80,0.1); color: #1b5e20; border-left-color: var(--success); display: block; }
-        .message.error { background: rgba(255,82,82,0.1); color: #b71c1c; border-left-color: var(--danger); display: block; }
-        .message.warning { background: rgba(255,152,0,0.1); color: #856404; border-left-color: var(--warning); display: block; }
-        .message.loading { background: rgba(255,152,0,0.1); color: #e65100; border-left-color: var(--warning); display: block; }
+        .message.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #1b5e20;
+            border-left-color: var(--success);
+            display: block;
+        }
         
-        .device-info-footer {
+        .message.error {
+            background: rgba(255, 82, 82, 0.1);
+            color: #b71c1c;
+            border-left-color: var(--danger);
+            display: block;
+        }
+        
+        .message.warning {
+            background: rgba(255, 152, 0, 0.1);
+            color: #856404;
+            border-left-color: var(--warning);
+            display: block;
+        }
+        
+        .message.loading {
+            background: rgba(255, 152, 0, 0.1);
+            color: #e65100;
+            border-left-color: var(--warning);
+            display: block;
+        }
+        
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .device-info {
             text-align: center;
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid var(--medium-gray);
             color: var(--primary);
             font-size: 11px;
+            line-height: 1.5;
             opacity: 0.7;
+            word-break: break-all;
         }
         
         .footer {
@@ -341,13 +595,69 @@
             border-top: 1px solid var(--medium-gray);
             color: var(--primary);
             font-size: 12px;
+            line-height: 1.5;
             opacity: 0.7;
         }
         
+        .footer p:first-child {
+            margin-bottom: 5px;
+        }
+        
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
         @media (max-width: 600px) {
-            .header h1 { font-size: 22px; }
-            .content { padding: 0 20px 20px; }
-            .local-btn { padding: 16px; }
+            .container {
+                border-radius: 20px;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .logo {
+                padding: 20px 20px 0;
+            }
+            
+            .content {
+                padding: 0 20px 20px;
+            }
+            
+            .local-btn {
+                padding: 16px;
+            }
+            
+            .dni-input,
+            .clave-input {
+                padding: 16px 16px 16px 50px;
+                font-size: 16px;
+            }
+            
+            .action-btn {
+                padding: 16px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            body {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .logo h2 {
+                font-size: 22px;
+            }
+            
+            .local-btn .local-name {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -364,40 +674,44 @@
                     <i class="fas fa-clock"></i>
                 </div>
                 <h2>FICHAJE DIGITAL</h2>
-                <p>Seleccioná tu zona</p>
+                <p id="logo-subtitle">Registro de entradas y salidas</p>
             </div>
             
             <!-- ======================================== -->
-            <!-- PANTALLA 1: SELECCIÓN DE ZONA/FRANQUICIA -->
+            <!-- PANTALLA 1: SELECCIÓN DE ZONA (PRIMERA VEZ) -->
             <!-- ======================================== -->
-            <div id="screen-zonas" class="screen active">
-                <h3 class="screen-title">Elegí tu zona</h3>
+            <div id="screen-zonas" class="screen">
+                <h3 class="screen-title">Seleccioná tu zona</h3>
                 <div class="zonas-grid" id="zonas-container">
-                    <!-- Se cargan dinámicamente -->
+                    <!-- Se carga dinámicamente -->
                     <div style="text-align: center; padding: 20px;">
                         <i class="fas fa-spinner fa-spin" style="font-size: 30px; color: var(--secondary);"></i>
                         <p style="margin-top: 15px;">Cargando zonas...</p>
                     </div>
                 </div>
+                <p style="text-align: center; color: #999; font-size: 13px; margin-top: 20px;">
+                    Esta selección se guardará para siempre en este dispositivo.
+                </p>
             </div>
             
             <!-- ======================================== -->
-            <!-- PANTALLA 2: LOGIN DE FRANQUICIA         -->
+            <!-- PANTALLA 2: INGRESAR CLAVE (PRIMERA VEZ) -->
             <!-- ======================================== -->
-            <div id="screen-login" class="screen">
-                <div class="login-box">
-                    <i class="fas fa-store"></i>
-                    <h2 id="zona-nombre">Zona Norte</h2>
-                    <p>Ingresá la clave de acceso para esta zona</p>
+            <div id="screen-clave" class="screen">
+                <div class="clave-box">
+                    <i class="fas fa-lock"></i>
+                    <h2>Clave de acceso</h2>
+                    <div class="zona-seleccionada" id="zona-seleccionada-nombre">Zona Norte</div>
+                    <p>Ingresá la clave para autorizar esta zona</p>
                     <div class="clave-input-container">
-                        <i class="fas fa-lock"></i>
+                        <i class="fas fa-key"></i>
                         <input type="password" 
-                               id="clave-franquicia" 
+                               id="clave-input" 
                                class="clave-input" 
                                placeholder="Clave de la zona">
                     </div>
-                    <button class="action-btn" onclick="loginFranquicia()" id="btn-login">
-                        <i class="fas fa-sign-in-alt"></i> ACCEDER
+                    <button class="action-btn" onclick="validarClaveZona()" id="btn-validar-clave">
+                        <i class="fas fa-check-circle"></i> VALIDAR Y GUARDAR
                     </button>
                     <button class="action-btn back-btn" onclick="volverAZonas()">
                         <i class="fas fa-arrow-left"></i> CAMBIAR ZONA
@@ -406,16 +720,17 @@
             </div>
             
             <!-- ======================================== -->
-            <!-- PANTALLA 3: REGISTRO DE DISPOSITIVO     -->
+            <!-- PANTALLA 3: REGISTRO DE DISPOSITIVO -->
             <!-- ======================================== -->
             <div id="screen-device-register" class="screen">
-                <div class="device-register-box" style="background: linear-gradient(135deg, rgba(255,152,0,0.05) 0%, rgba(255,193,7,0.03) 100%); border-left: 5px solid var(--warning); padding: 25px; border-radius: 16px; margin: 20px 0;">
-                    <h3 style="color: #856404; margin-bottom: 15px;">🔐 Registro de Dispositivo</h3>
-                    <p style="color: #666; margin-bottom: 20px;">
+                <div class="clave-box" style="border-left-color: var(--danger);">
+                    <i class="fas fa-microchip"></i>
+                    <h2 style="color: #721c24;">Registro de dispositivo</h2>
+                    <p style="color: #666;">
                         Es la primera vez que usás este dispositivo.<br>
                         Ingresá la clave de registro general.
                     </p>
-                    <div class="device-id" style="font-family: monospace; background: white; padding: 15px; border-radius: 12px; border: 2px dashed var(--warning); text-align: center; margin: 15px 0;" id="deviceIdDisplay">
+                    <div style="font-family: monospace; background: white; padding: 15px; border-radius: 12px; border: 2px dashed var(--danger); text-align: center; margin: 15px 0; word-break: break-all;" id="deviceIdDisplay">
                         Generando identificador...
                     </div>
                     <div class="clave-input-container">
@@ -425,22 +740,22 @@
                                class="clave-input" 
                                placeholder="Clave de registro">
                     </div>
-                    <button class="register-btn" onclick="registrarDispositivo()" id="btnRegistrar" style="width: 100%; padding: 17px; background: linear-gradient(to right, var(--warning), #FFB74D); border: none; border-radius: 14px; color: white; font-weight: 600;">
+                    <button class="action-btn" onclick="registrarDispositivo()" id="btn-registrar" style="background: linear-gradient(to right, var(--danger), #dc3545);">
                         <i class="fas fa-check-circle"></i> REGISTRAR DISPOSITIVO
                     </button>
-                    <button class="action-btn back-btn" onclick="recargarPagina()" style="margin-top: 15px;">
+                    <button class="action-btn back-btn" onclick="recargarPagina()">
                         <i class="fas fa-redo-alt"></i> REINTENTAR
                     </button>
                 </div>
             </div>
             
             <!-- ======================================== -->
-            <!-- PANTALLA 4: MENÚ PRINCIPAL (LOCALES)    -->
+            <!-- PANTALLA 4: MENÚ PRINCIPAL (LOCALES) -->
             <!-- ======================================== -->
             <div id="screen-home" class="screen">
-                <div style="background: rgba(102,102,102,0.05); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; border-left: 5px solid var(--secondary);">
-                    <span style="font-weight: 700; color: var(--secondary);" id="zona-actual-label">Zona Norte</span>
-                    <span style="margin-left: 10px; font-size: 12px; color: #666;">(podés cambiar de zona al salir)</span>
+                <div class="zona-badge">
+                    <span id="zona-actual-label">Zona Norte</span>
+                    <span style="margin-left: 10px; font-size: 12px; color: #666;">(guardada)</span>
                 </div>
                 
                 <h3 class="screen-title">Seleccioná tu local</h3>
@@ -449,8 +764,7 @@
                     <!-- Se cargan dinámicamente según la zona -->
                 </div>
                 
-                <div class="salida-section" style="margin-top: 30px; padding-top: 25px; border-top: 1px solid var(--medium-gray); position: relative;">
-                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; color: var(--accent); font-size: 13px; font-weight: 700;">SALIDA</div>
+                <div class="salida-section">
                     <button class="local-btn salida-btn" onclick="selectSalida()" id="btn-salida">
                         <div class="icon">
                             <i class="fas fa-sign-out-alt"></i>
@@ -462,29 +776,30 @@
                     </button>
                 </div>
                 
-                <button class="action-btn back-btn" onclick="cerrarSesion()" style="margin-top: 25px;">
-                    <i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN Y CAMBIAR ZONA
+                <button class="action-btn reset-btn" onclick="resetZona()" id="btn-reset" style="display: none;">
+                    <i class="fas fa-trash-alt"></i> CAMBIAR ZONA (SOLO ADMIN)
                 </button>
             </div>
             
             <!-- ======================================== -->
-            <!-- PANTALLA 5: INGRESO DE DNI              -->
+            <!-- PANTALLA 5: INGRESO DE DNI -->
             <!-- ======================================== -->
             <div id="screen-dni" class="screen">
                 <div class="local-info-card" id="local-info">
                     <h3>Fichaje de <span id="fichaje-type">ENTRADA</span></h3>
                     <div class="local-name" id="current-local">LACROZE</div>
-                    <div class="fichaje-type" id="type-badge" style="display: inline-block; padding: 5px 15px; background: var(--primary); color: white; border-radius: 20px; font-size: 13px; margin-top: 5px;">ENTRADA</div>
+                    <div class="fichaje-type" id="type-badge">ENTRADA</div>
                 </div>
                 
                 <div class="input-group">
-                    <label class="dni-label" for="dni-input" style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--dark); text-align: center;">Ingresá tu número de DNI</label>
+                    <label class="dni-label" for="dni-input">Ingresá tu número de DNI</label>
                     <div class="dni-input-container">
                         <i class="fas fa-id-card"></i>
                         <input type="number" 
                                id="dni-input" 
                                class="dni-input" 
                                placeholder="Ej: 35286339"
+                               inputmode="numeric"
                                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                     </div>
                 </div>
@@ -500,7 +815,7 @@
             
             <div id="message" class="message"></div>
             
-            <div id="device-info-footer" class="device-info-footer">
+            <div class="device-info" id="device-info">
                 <div style="margin-bottom: 5px;">
                     <i class="fas fa-microchip"></i> Dispositivo: <span id="device-id-short">Verificando...</span>
                 </div>
@@ -508,8 +823,8 @@
             </div>
             
             <div class="footer">
-                <p>Sistema Multi-Franquicia v1.0</p>
-                <p>🔐 Cada zona tiene su propia clave de acceso</p>
+                <p>Sistema v6.0 • Zona guardada para siempre</p>
+                <p>🔐 La primera vez es la única</p>
             </div>
         </div>
     </div>
@@ -527,9 +842,46 @@
         
         let deviceId = null;
         let dispositivoAutorizado = false;
-        let franquiciaActual = null;
+        let zonaActual = null; // { id, nombre, locales }
         let currentLocal = '';
         let currentType = 'entrada';
+        
+        // ============================================
+        // INICIALIZACIÓN - LO PRIMERO QUE SE EJECUTA
+        // ============================================
+        
+        async function inicializar() {
+            // Generar device ID
+            deviceId = generarDeviceId();
+            actualizarInfoDispositivo();
+            
+            // Verificar si el dispositivo está registrado
+            const dispositivoRegistrado = localStorage.getItem('heladerias_device_registered');
+            dispositivoAutorizado = dispositivoRegistrado === 'true';
+            
+            // VERIFICAR SI YA TIENE ZONA GUARDADA
+            const zonaGuardada = localStorage.getItem('zona_guardada');
+            
+            if (zonaGuardada) {
+                // ✅ YA TIENE ZONA - VA DIRECTO AL FICHAJE
+                zonaActual = JSON.parse(zonaGuardada);
+                
+                if (dispositivoAutorizado) {
+                    // Todo listo, va directo a la pantalla de locales
+                    cargarPantallaPrincipal();
+                } else {
+                    // Tiene zona pero no dispositivo registrado
+                    mostrarPantallaRegistroDispositivo();
+                }
+            } else {
+                // ❌ NO TIENE ZONA - PRIMERA VEZ
+                cargarZonas();
+                showScreen('screen-zonas');
+            }
+            
+            // Event listeners
+            configurarEventListeners();
+        }
         
         // ============================================
         // GENERAR ID ÚNICO DEL DISPOSITIVO
@@ -623,7 +975,7 @@
         }
         
         // ============================================
-        // CARGAR ZONAS/FRANQUICIAS
+        // CARGAR ZONAS DESDE EL BACKEND
         // ============================================
         
         async function cargarZonas() {
@@ -658,7 +1010,7 @@
                     <div class="zona-card" onclick="seleccionarZona('${zona.id}', '${zona.nombre}')">
                         <i class="fas fa-store"></i>
                         <h3>${zona.nombre}</h3>
-                        <p>Hacé clic para acceder</p>
+                        <p>Hacé clic para seleccionar</p>
                     </div>
                 `;
             });
@@ -688,26 +1040,28 @@
         }
         
         // ============================================
-        // SELECCIONAR ZONA Y MOSTRAR LOGIN
+        // SELECCIONAR ZONA (PRIMERA VEZ)
         // ============================================
         
         function seleccionarZona(zonaId, zonaNombre) {
-            sessionStorage.setItem('zona_seleccionada_id', zonaId);
-            sessionStorage.setItem('zona_seleccionada_nombre', zonaNombre);
+            // Guardar temporalmente la selección
+            sessionStorage.setItem('zona_temp_id', zonaId);
+            sessionStorage.setItem('zona_temp_nombre', zonaNombre);
             
-            document.getElementById('zona-nombre').textContent = zonaNombre;
-            document.getElementById('clave-franquicia').value = '';
-            showScreen('screen-login');
+            // Mostrar pantalla de clave
+            document.getElementById('zona-seleccionada-nombre').textContent = zonaNombre;
+            document.getElementById('clave-input').value = '';
+            showScreen('screen-clave');
         }
         
         // ============================================
-        // LOGIN DE FRANQUICIA
+        // VALIDAR CLAVE DE ZONA (PRIMERA VEZ)
         // ============================================
         
-        async function loginFranquicia() {
-            const clave = document.getElementById('clave-franquicia').value;
-            const zonaId = sessionStorage.getItem('zona_seleccionada_id');
-            const zonaNombre = sessionStorage.getItem('zona_seleccionada_nombre');
+        async function validarClaveZona() {
+            const clave = document.getElementById('clave-input').value;
+            const zonaId = sessionStorage.getItem('zona_temp_id');
+            const zonaNombre = sessionStorage.getItem('zona_temp_nombre');
             
             if (!clave) {
                 showMessage('❌ Ingresá la clave de la zona', 'warning');
@@ -721,7 +1075,7 @@
             }
             
             try {
-                mostrarLoading('btn-login', 'Verificando...');
+                mostrarLoading('btn-validar-clave', 'Verificando...');
                 
                 const formData = new FormData();
                 formData.append('action', 'loginFranquicia');
@@ -736,16 +1090,23 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    franquiciaActual = {
+                    // ✅ CLAVE CORRECTA - GUARDAR ZONA PARA SIEMPRE
+                    zonaActual = {
                         id: zonaId,
                         nombre: zonaNombre,
                         locales: data.franquicia.locales
                     };
                     
-                    sessionStorage.setItem('franquicia_activa', JSON.stringify(franquiciaActual));
+                    // Guardar en localStorage PERMANENTE
+                    localStorage.setItem('zona_guardada', JSON.stringify(zonaActual));
                     
-                    showMessage('✅ Acceso concedido', 'success');
+                    // Limpiar temporales
+                    sessionStorage.removeItem('zona_temp_id');
+                    sessionStorage.removeItem('zona_temp_nombre');
                     
+                    showMessage('✅ Zona guardada correctamente', 'success');
+                    
+                    // Verificar dispositivo
                     await verificarDispositivo();
                     
                 } else {
@@ -756,7 +1117,7 @@
                 console.error('Error:', error);
                 showMessage('❌ Error de conexión', 'error');
             } finally {
-                ocultarLoading('btn-login', 'ACCEDER');
+                ocultarLoading('btn-validar-clave', 'VALIDAR Y GUARDAR');
             }
         }
         
@@ -765,22 +1126,22 @@
         // ============================================
         
         async function verificarDispositivo() {
-            deviceId = generarDeviceId();
-            actualizarInfoDispositivo();
-            
             const registrado = localStorage.getItem('heladerias_device_registered');
             
             if (registrado === 'true') {
                 dispositivoAutorizado = true;
                 cargarPantallaPrincipal();
             } else {
-                document.getElementById('screen-login').classList.remove('active');
-                document.getElementById('screen-device-register').classList.add('active');
-                
-                const deviceIdDisplay = document.getElementById('deviceIdDisplay');
-                if (deviceIdDisplay) {
-                    deviceIdDisplay.textContent = deviceId;
-                }
+                mostrarPantallaRegistroDispositivo();
+            }
+        }
+        
+        function mostrarPantallaRegistroDispositivo() {
+            showScreen('screen-device-register');
+            
+            const deviceIdDisplay = document.getElementById('deviceIdDisplay');
+            if (deviceIdDisplay) {
+                deviceIdDisplay.textContent = deviceId;
             }
         }
         
@@ -797,7 +1158,7 @@
             }
             
             try {
-                mostrarLoading('btnRegistrar', 'Registrando dispositivo...');
+                mostrarLoading('btn-registrar', 'Registrando...');
                 
                 const ip = await obtenerIP();
                 const deviceInfo = detectDeviceInfo();
@@ -822,45 +1183,49 @@
                 if (data.success) {
                     dispositivoAutorizado = true;
                     localStorage.setItem('heladerias_device_registered', 'true');
-                    showMessage('✅ Dispositivo registrado correctamente', 'success');
+                    showMessage('✅ Dispositivo registrado', 'success');
                     
                     setTimeout(() => {
                         cargarPantallaPrincipal();
                     }, 1500);
                 } else {
-                    showMessage(data.error || '❌ Error al registrar dispositivo', 'error');
+                    showMessage(data.error || '❌ Error al registrar', 'error');
                 }
                 
             } catch (error) {
                 console.error('Error:', error);
                 showMessage('❌ Error de conexión', 'error');
             } finally {
-                ocultarLoading('btnRegistrar', 'REGISTRAR DISPOSITIVO');
+                ocultarLoading('btn-registrar', 'REGISTRAR DISPOSITIVO');
             }
         }
         
         // ============================================
-        // CARGAR PANTALLA PRINCIPAL
+        // CARGAR PANTALLA PRINCIPAL (LOCALES)
         // ============================================
         
         function cargarPantallaPrincipal() {
-            const franquiciaGuardada = sessionStorage.getItem('franquicia_activa');
-            if (franquiciaGuardada) {
-                franquiciaActual = JSON.parse(franquiciaGuardada);
+            // Recuperar zona guardada
+            const zonaGuardada = localStorage.getItem('zona_guardada');
+            if (zonaGuardada) {
+                zonaActual = JSON.parse(zonaGuardada);
             }
             
-            if (!franquiciaActual || !franquiciaActual.locales) {
-                showMessage('❌ Error: no hay información de la zona', 'error');
-                volverAZonas();
+            if (!zonaActual || !zonaActual.locales) {
+                showMessage('❌ Error: no hay zona guardada', 'error');
+                resetZona();
                 return;
             }
             
-            document.getElementById('zona-actual-label').textContent = franquiciaActual.nombre;
+            // Actualizar badge
+            document.getElementById('zona-actual-label').textContent = zonaActual.nombre;
+            document.getElementById('logo-subtitle').textContent = `${zonaActual.nombre} · ${Object.keys(zonaActual.locales).length} locales`;
             
+            // Cargar locales
             const localesContainer = document.getElementById('locales-container');
             let localesHtml = '';
             
-            for (const [id, nombre] of Object.entries(franquiciaActual.locales)) {
+            for (const [id, nombre] of Object.entries(zonaActual.locales)) {
                 localesHtml += `
                     <button class="local-btn" onclick="selectLocal('${id}')">
                         <div class="icon">
@@ -876,21 +1241,23 @@
             
             localesContainer.innerHTML = localesHtml;
             
+            // Mostrar pantalla principal
             showScreen('screen-home');
             hideMessage();
         }
         
         // ============================================
-        // CERRAR SESIÓN
+        // RESET DE ZONA (SOLO PARA ADMIN, OCULTO)
         // ============================================
         
-        function cerrarSesion() {
-            franquiciaActual = null;
-            sessionStorage.removeItem('franquicia_activa');
-            sessionStorage.removeItem('zona_seleccionada_id');
-            sessionStorage.removeItem('zona_seleccionada_nombre');
-            showScreen('screen-zonas');
-            hideMessage();
+        function resetZona() {
+            if (confirm('¿Estás seguro? Se borrará la zona guardada y tendrás que configurarla de nuevo.')) {
+                localStorage.removeItem('zona_guardada');
+                localStorage.removeItem('heladerias_device_registered');
+                localStorage.removeItem('heladerias_device_id');
+                sessionStorage.clear();
+                location.reload();
+            }
         }
         
         // ============================================
@@ -900,13 +1267,14 @@
         function selectLocal(local) {
             if (!dispositivoAutorizado) {
                 showMessage('🔐 Dispositivo no autorizado', 'warning');
+                verificarDispositivo();
                 return;
             }
             
             currentLocal = local;
             currentType = 'entrada';
             
-            const localNombre = franquiciaActual.locales[local] || local.toUpperCase();
+            const localNombre = zonaActual.locales[local] || local.toUpperCase();
             
             const localInfoCard = document.getElementById('local-info');
             localInfoCard.className = 'local-info-card';
@@ -925,6 +1293,7 @@
         function selectSalida() {
             if (!dispositivoAutorizado) {
                 showMessage('🔐 Dispositivo no autorizado', 'warning');
+                verificarDispositivo();
                 return;
             }
             
@@ -948,20 +1317,20 @@
         async function submitFichaje() {
             if (!dispositivoAutorizado) {
                 showMessage('🔐 Dispositivo no autorizado', 'warning');
-                goBack();
+                verificarDispositivo();
                 return;
             }
             
-            if (!franquiciaActual) {
-                showMessage('❌ Error: no hay zona seleccionada', 'error');
-                volverAZonas();
+            if (!zonaActual) {
+                showMessage('❌ Error: no hay zona guardada', 'error');
+                resetZona();
                 return;
             }
             
             const dni = document.getElementById('dni-input').value.trim();
             
             if (!dni || !/^\d{7,8}$/.test(dni)) {
-                showMessage('❌ DNI inválido', 'error');
+                showMessage('❌ DNI inválido (7 u 8 dígitos)', 'error');
                 return;
             }
             
@@ -978,7 +1347,7 @@
             formData.append('dni', dni);
             formData.append('tipo', currentType);
             formData.append('local', currentLocal);
-            formData.append('zona', franquiciaActual.id);
+            formData.append('zona', zonaActual.id);
             formData.append('device_id', deviceId);
             formData.append('ip_publica', ip);
             formData.append('dispositivo_tipo', deviceInfo.tipo);
@@ -1021,21 +1390,21 @@
             }
         }
         
-        // ============================================
-        // FUNCIONES DE UI
-        // ============================================
-        
-        function volverAZonas() {
-            sessionStorage.removeItem('zona_seleccionada_id');
-            sessionStorage.removeItem('zona_seleccionada_nombre');
-            showScreen('screen-zonas');
-            hideMessage();
-        }
-        
         function goBack() {
             showScreen('screen-home');
             hideMessage();
         }
+        
+        function volverAZonas() {
+            sessionStorage.removeItem('zona_temp_id');
+            sessionStorage.removeItem('zona_temp_nombre');
+            showScreen('screen-zonas');
+            hideMessage();
+        }
+        
+        // ============================================
+        // FUNCIONES DE UI
+        // ============================================
         
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(screen => {
@@ -1055,7 +1424,7 @@
         function ocultarLoading(buttonId, texto) {
             const btn = document.getElementById(buttonId);
             if (btn) {
-                btn.innerHTML = `<i class="fas fa-${buttonId === 'btn-login' ? 'sign-in-alt' : 'check-circle'}"></i> ${texto}`;
+                btn.innerHTML = `<i class="fas fa-check-circle"></i> ${texto}`;
                 btn.disabled = false;
             }
         }
@@ -1093,30 +1462,7 @@
             messageDiv.innerHTML = '';
         }
         
-        // ============================================
-        // INICIALIZACIÓN
-        // ============================================
-        
-        async function inicializar() {
-            deviceId = generarDeviceId();
-            actualizarInfoDispositivo();
-            
-            const franquiciaGuardada = sessionStorage.getItem('franquicia_activa');
-            const registrado = localStorage.getItem('heladerias_device_registered');
-            
-            if (franquiciaGuardada && registrado === 'true') {
-                franquiciaActual = JSON.parse(franquiciaGuardada);
-                dispositivoAutorizado = true;
-                cargarPantallaPrincipal();
-            } else {
-                await cargarZonas();
-                showScreen('screen-zonas');
-                
-                if (franquiciaGuardada) {
-                    sessionStorage.removeItem('franquicia_activa');
-                }
-            }
-            
+        function configurarEventListeners() {
             const dniInput = document.getElementById('dni-input');
             if (dniInput) {
                 dniInput.addEventListener('keypress', function(event) {
@@ -1127,20 +1473,24 @@
                 });
             }
             
-            const claveInput = document.getElementById('registro-clave');
-            if (claveInput) {
-                claveInput.addEventListener('keypress', function(event) {
+            const registroClave = document.getElementById('registro-clave');
+            if (registroClave) {
+                registroClave.addEventListener('keypress', function(event) {
                     if (event.key === 'Enter') registrarDispositivo();
                 });
             }
             
-            const claveFranquicia = document.getElementById('clave-franquicia');
-            if (claveFranquicia) {
-                claveFranquicia.addEventListener('keypress', function(event) {
-                    if (event.key === 'Enter') loginFranquicia();
+            const claveZona = document.getElementById('clave-input');
+            if (claveZona) {
+                claveZona.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') validarClaveZona();
                 });
             }
         }
+        
+        // ============================================
+        // INICIAR
+        // ============================================
         
         window.onload = inicializar;
     </script>
