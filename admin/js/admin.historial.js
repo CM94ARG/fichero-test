@@ -93,7 +93,7 @@ const adminHistorial = {
         document.getElementById('historialEmpleadoInfo').innerHTML = `
             <div class="empleado-badge">
                 <i class="fas fa-user"></i>
-                <strong>${empleado.nombre}</strong> - DNI: ${empleado.dni}
+                <strong>${empleado.nombre}</strong> - DNI: ****${empleado.dni.slice(-4)}
             </div>
         `;
         
