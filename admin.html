@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel por Zona - Sistema de Fichaje</title>
+    <style>
+        /* ============================================
+           TUS ESTILOS ORIGINALES - SIN CAMBIOS
+           ============================================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            min-height: 600px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            opacity: 0.9;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .login-section {
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 40px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .login-section h2 {
+            margin-bottom: 30px;
+            color: #1a237e;
+            font-size: 1.8rem;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #1a237e;
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(26, 35, 126, 0.3);
+        }
+        
+        .btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn.secondary {
+            background: linear-gradient(135deg, #666 0%, #888 100%);
+        }
+        
+        .btn.secondary:hover:not(:disabled) {
+            box-shadow: 0 7px 20px rgba(102, 102, 102, 0.3);
+        }
+        
+        .admin-section {
+            display: none;
+            padding: 40px;
+        }
+        
+        .zona-badge {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8eaf6 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 6px solid #1a237e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .zona-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .zona-icon {
+            background: #1a237e;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .zona-text h3 {
+            color: #1a237e;
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        
+        .zona-text p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .empleados-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .empleado-card {
+            background: white;
+            border: 1px solid #e1e1e1;
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .empleado-card:hover {
+            border-color: #1a237e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .empleado-card.selected {
+            border-color: #1a237e;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8eaf6 100%);
+        }
+        
+        .empleado-card h3 {
+            color: #1a237e;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .empleado-card .dni {
+            color: #666;
+            font-size: 0.9rem;
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge.pendiente {
+            background: #ff9800;
+        }
+        
+        .accion-form {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px solid #e8eaf6;
+        }
+        
+        .accion-form h3 {
+            color: #1a237e;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #1a237e;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+        
+        .accion-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e1e1e1;
+        }
+        
+        .accion-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .accion-btn:hover {
+            border-color: #1a237e;
+            background: #f8f9ff;
+        }
+        
+        .accion-btn.selected {
+            border-color: #1a237e;
+            background: #1a237e;
+            color: white;
+        }
+        
+        .accion-btn.entrada.selected {
+            border-color: #4caf50;
+            background: #4caf50;
+        }
+        
+        .accion-btn.salida.selected {
+            border-color: #ff9800;
+            background: #ff9800;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .alert.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .alert.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .alert.warning {
+            background: #fff8e1;
+            color: #f57c00;
+            border: 1px solid #ffecb3;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1a237e;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .auditoria-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e0e0e0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .auditoria-info div {
+            margin-bottom: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logout-btn {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                margin-top: 15px;
+                width: 100%;
+                display: block !important;
+            }
+            
+            .admin-section {
+                padding: 20px;
+            }
+            
+            .empleados-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .accion-buttons {
+                flex-direction: column;
+            }
+            
+            .zona-badge {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .zona-info {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🔒 Panel por Zona</h1>
+            <div class="subtitle" id="header-subtitle">Sistema de Fichaje - Acceso a Franquicia</div>
+            <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+        </div>
+        
+        <!-- SECCIÓN DE LOGIN (PRIMERA VEZ) -->
+        <div class="login-section" id="loginSection">
+            <h2>Acceso a Zona</h2>
+            
+            <!-- SELECTOR DE ZONA -->
+            <div class="input-group">
+                <label for="zonaSelect">Seleccioná tu zona</label>
+                <select id="zonaSelect" onchange="actualizarInfoZona()">
+                    <option value="">-- Elegí una zona --</option>
+                    <option value="zona1">Zona Norte</option>
+                    <option value="zona2">Zona Sur</option>
+                    <option value="zona3">Zona Oeste</option>
+                </select>
+            </div>
+            
+            <!-- INFO DE LA ZONA (se muestra al seleccionar) -->
+            <div id="zonaInfo" style="background: #f8f9ff; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-store" style="color: #1a237e; font-size: 24px;"></i>
+                    <div style="text-align: left;">
+                        <strong id="zonaInfoNombre">Zona Norte</strong><br>
+                        <span id="zonaInfoLocales" style="font-size: 13px; color: #666;">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CAMPO DE CONTRASEÑA -->
+            <div class="input-group">
+                <label for="password">Contraseña de la zona</label>
+                <input type="password" id="password" placeholder="Ingresá la contraseña" autocomplete="off">
+            </div>
+            
+            <button class="btn" onclick="loginZona()" id="loginBtn">Ingresar a mi zona</button>
+            
+            <!-- ZONA GUARDADA (oculta, muestra si ya hay sesión) -->
+            <div id="zonaGuardadaInfo" style="margin-top: 20px; padding: 15px; background: #e8eaf6; border-radius: 8px; display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-check-circle" style="color: #1a237e;"></i>
+                    <span>Ya tenés una sesión activa. Hacé <a href="#" onclick="usarZonaGuardada()" style="color: #1a237e; font-weight: bold;">clic acá</a> para continuar.</span>
+                </div>
+            </div>
+            
+            <div class="alert error" id="loginError" style="display: none;"></div>
+        </div>
+        
+        <!-- SECCIÓN DE ADMIN (DESPUÉS DEL LOGIN) -->
+        <div class="admin-section" id="adminSection">
+            <!-- BADGE DE ZONA ACTIVA -->
+            <div class="zona-badge" id="zonaBadge">
+                <div class="zona-info">
+                    <div class="zona-icon" id="zonaIcon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="zona-text">
+                        <h3 id="zonaNombre">Zona Norte</h3>
+                        <p id="zonaDetalle">Cargando información...</p>
+                    </div>
+                </div>
+                <div style="color: #666; font-size: 14px;">
+                    <i class="fas fa-calendar"></i> <span id="fechaHoy"></span>
+                </div>
+            </div>
+            
+            <!-- MENSAJES -->
+            <div class="alert success" id="successAlert" style="display: none;"></div>
+            <div class="alert error" id="errorAlert" style="display: none;"></div>
+            <div class="alert warning" id="warningAlert" style="display: none;"></div>
+            
+            <!-- LOADING -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Cargando datos de la zona...</p>
+            </div>
+            
+            <!-- LISTA DE EMPLEADOS DE LA ZONA -->
+            <h2 style="margin-bottom: 20px; color: #1a237e;">Empleados de <span id="zonaEmpleadosTitulo"></span></h2>
+            <div class="empleados-container" id="empleadosContainer">
+                <!-- Los empleados se cargarán aquí -->
+            </div>
+            
+            <!-- FORMULARIO DE ACCIÓN -->
+            <div class="accion-form" id="accionForm" style="display: none;">
+                <h3>📝 Registro Manual</h3>
+                <div id="empleadoSeleccionado" style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e1e1e1;">
+                    <!-- Info del empleado seleccionado -->
+                </div>
+                
+                <!-- BOTONES DE ACCIÓN -->
+                <div class="accion-buttons">
+                    <button class="accion-btn entrada" onclick="seleccionarAccion('entrada')">
+                        📥 Agregar Entrada
+                    </button>
+                    <button class="accion-btn salida" onclick="seleccionarAccion('salida')">
+                        📤 Agregar Salida
+                    </button>
+                </div>
+                
+                <!-- FORMULARIO DINÁMICO CON LOCALES DE LA ZONA -->
+                <div id="formularioDinamico">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn" onclick="registrarAccionManual()" id="registrarBtn">
+                        Registrar
+                    </button>
+                    <button class="btn secondary" onclick="cancelarAccion()" style="margin-top: 10px;">
+                        Cancelar
+                    </button>
+                </div>
+                
+                <div class="auditoria-info" id="auditoriaInfo" style="margin-top: 25px; display: none;">
+                    <strong>📋 Información de Auditoría:</strong>
+                    <div>Fecha y hora: <span id="fechaRegistro"></span></div>
+                    <div>Realizado por: <span id="adminZona"></span></div>
+                    <div>Zona: <span id="auditoriaZona"></span></div>
+                    <div>Acción: <span id="tipoAccion"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        // ============================================
+        // CONFIGURACIÓN
+        // ============================================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyO0ZJeyK1eUBI-9D8xTQyxge2sy_dV8iIXWEW5wDoKm5LWeASt0bfXKCgkj8joZ4PD/exec';
+        
+        // ============================================
+        // ESTADO GLOBAL
+        // ============================================
+        let zonaActiva = null;          // { id, nombre, locales, empleados }
+        let empleadoSeleccionado = null;
+        let accionSeleccionada = null;
+        
+        // ============================================
+        // INICIALIZACIÓN - VERIFICAR ZONA GUARDADA
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si hay una zona guardada en localStorage
+            const zonaGuardada = localStorage.getItem('admin_zona_activa');
+            
+            if (zonaGuardada) {
+                zonaActiva = JSON.parse(zonaGuardada);
+                mostrarZonaGuardada();
+            } else {
+                // Mostrar selector de zona
+                document.getElementById('loginSection').style.display = 'block';
+                cargarInfoZonas();
+            }
+            
+            // Event listener para Enter en password
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginZona();
+                }
+            });
+            
+            // Fecha actual
+            const hoy = new Date().toLocaleDateString('es-AR', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('fechaHoy').textContent = hoy.charAt(0).toUpperCase() + hoy.slice(1);
+        });
+        
+        // ============================================
+        // FUNCIONES DE ZONA
+        // ============================================
+        
+        function cargarInfoZonas() {
+            // Por ahora hardcodeado, después podés traer del backend
+            const zonas = {
+                zona1: { nombre: 'Zona Norte', locales: ['Saavedra', 'Palermo', 'Colegiales'] },
+                zona2: { nombre: 'Zona Sur', locales: ['Local A', 'Local B', 'Local C', 'Local D', 'Local E'] },
+                zona3: { nombre: 'Zona Oeste', locales: ['Devoto', 'Villa Devoto'] }
+            };
+            
+            window.zonasInfo = zonas;
+        }
+        
+        function actualizarInfoZona() {
+            const zonaId = document.getElementById('zonaSelect').value;
+            const zonaInfo = document.getElementById('zonaInfo');
+            const zonaInfoNombre = document.getElementById('zonaInfoNombre');
+            const zonaInfoLocales = document.getElementById('zonaInfoLocales');
+            
+            if (!zonaId) {
+                zonaInfo.style.display = 'none';
+                return;
+            }
+            
+            const zonas = {
+                zona1: { nombre: 'Zona Norte', locales: 'Saavedra • Palermo • Colegiales' },
+                zona2: { nombre: 'Zona Sur', locales: 'Local A • Local B • Local C • Local D • Local E' },
+                zona3: { nombre: 'Zona Oeste', locales: 'Devoto • Villa Devoto' }
+            };
+            
+            zonaInfoNombre.textContent = zonas[zonaId].nombre;
+            zonaInfoLocales.textContent = zonas[zonaId].locales;
+            zonaInfo.style.display = 'block';
+        }
+        
+        function mostrarZonaGuardada() {
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('adminSection').style.display = 'none';
+            
+            const zonaGuardadaInfo = document.getElementById('zonaGuardadaInfo');
+            zonaGuardadaInfo.style.display = 'block';
+            
+            // Ocultar selector y password
+            document.getElementById('zonaSelect').style.display = 'none';
+            document.getElementById('zonaInfo').style.display = 'none';
+            document.querySelector('.input-group label[for="password"]').parentElement.style.display = 'none';
+            
+            // Mostrar mensaje
+            document.querySelector('.login-section h2').textContent = 'Sesión activa';
+        }
+        
+        function usarZonaGuardada() {
+            const zonaGuardada = localStorage.getItem('admin_zona_activa');
+            if (zonaGuardada) {
+                zonaActiva = JSON.parse(zonaGuardada);
+                showAdminPanel();
+                cargarEmpleadosZona();
+            }
+        }
+        
+        // ============================================
+        // LOGIN POR ZONA
+        // ============================================
+        
+        async function loginZona() {
+            const zonaId = document.getElementById('zonaSelect').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const loginError = document.getElementById('loginError');
+            
+            if (!zonaId) {
+                showError(loginError, 'Por favor seleccioná una zona');
+                return;
+            }
+            
+            if (!password) {
+                showError(loginError, 'Por favor ingresá la contraseña');
+                return;
+            }
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Verificando...';
+            loginError.style.display = 'none';
+            
+            try {
+                const formData = new FormData();
+                formData.append('action', 'loginFranquicia');
+                formData.append('zona', zonaId);
+                formData.append('clave_acceso', password);
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Guardar zona activa
+                    zonaActiva = {
+                        id: zonaId,
+                        nombre: data.franquicia.nombre,
+                        locales: data.franquicia.locales
+                    };
+                    
+                    // Guardar en localStorage para siempre
+                    localStorage.setItem('admin_zona_activa', JSON.stringify(zonaActiva));
+                    
+                    // Mostrar panel
+                    showAdminPanel();
+                    cargarEmpleadosZona();
+                } else {
+                    showError(loginError, data.error || 'Contraseña incorrecta');
+                }
+            } catch (error) {
+                showError(loginError, 'Error de conexión');
+                console.error('Login error:', error);
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Ingresar a mi zona';
+                document.getElementById('password').value = '';
+            }
+        }
+        
+        // ============================================
+        // FUNCIONES DE INTERFAZ
+        // ============================================
+        
+        function showAdminPanel() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminSection').style.display = 'block';
+            document.querySelector('.logout-btn').style.display = 'block';
+            
+            // Actualizar header
+            document.getElementById('header-subtitle').textContent = `Panel de ${zonaActiva.nombre}`;
+            
+            // Actualizar badge
+            document.getElementById('zonaNombre').textContent = zonaActiva.nombre;
+            document.getElementById('zonaDetalle').innerHTML = 
+                `<i class="fas fa-map-marker-alt"></i> ${Object.keys(zonaActiva.locales).length} locales disponibles`;
+            document.getElementById('zonaEmpleadosTitulo').textContent = zonaActiva.nombre;
+        }
+        
+        function logout() {
+            // Preguntar si quiere cerrar sesión
+            if (confirm('¿Cerrar sesión? Se borrará la zona guardada.')) {
+                localStorage.removeItem('admin_zona_activa');
+                zonaActiva = null;
+                empleadoSeleccionado = null;
+                accionSeleccionada = null;
+                
+                // Resetear UI
+                document.getElementById('loginSection').style.display = 'block';
+                document.getElementById('adminSection').style.display = 'none';
+                document.querySelector('.logout-btn').style.display = 'none';
+                document.getElementById('zonaGuardadaInfo').style.display = 'none';
+                document.getElementById('zonaSelect').style.display = 'block';
+                document.getElementById('zonaInfo').style.display = 'none';
+                document.querySelector('.input-group label[for="password"]').parentElement.style.display = 'block';
+                document.querySelector('.login-section h2').textContent = 'Acceso a Zona';
+                document.getElementById('zonaSelect').value = '';
+                
+                clearAlerts();
+            }
+        }
+        
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+        
+        function showSuccess(message) {
+            const alert = document.getElementById('successAlert');
+            alert.textContent = message;
+            alert.style.display = 'block';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+        
+        function showError(element, message) {
+            if (typeof element === 'string') {
+                element = document.getElementById(element);
+            }
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+        
+        function clearAlerts() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.display = 'none';
+            });
+        }
+        
+        // ============================================
+        // FUNCIONES DE EMPLEADOS (POR ZONA)
+        // ============================================
+        
+        async function cargarEmpleadosZona() {
+            if (!zonaActiva) return;
+            
+            showLoading(true);
+            
+            try {
+                const formData = new FormData();
+                formData.append('action', 'getEmpleadosPorFranquicia');
+                formData.append('zona', zonaActiva.id);
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Guardar empleados en zonaActiva
+                    zonaActiva.empleados = data.empleados;
+                    renderEmpleados(data.empleados);
+                } else {
+                    showError('errorAlert', 'Error al cargar empleados: ' + (data.error || 'Desconocido'));
+                }
+            } catch (error) {
+                showError('errorAlert', 'Error de conexión al cargar empleados');
+                console.error('Error cargando empleados:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        function renderEmpleados(empleados) {
+            const container = document.getElementById('empleadosContainer');
+            container.innerHTML = '';
+            
+            if (!empleados || empleados.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px; background: #f8f9fa; border-radius: 12px;">
+                        <i class="fas fa-users" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+                        <h3 style="color: #666; margin-bottom: 10px;">No hay empleados en esta zona</h3>
+                        <p style="color: #999;">Agregá empleados desde el backend</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            empleados.forEach(empleado => {
+                const card = document.createElement('div');
+                card.className = 'empleado-card';
+                card.onclick = (e) => seleccionarEmpleado(empleado, e);
+                
+                card.innerHTML = `
+                    <h3>${empleado.nombre}</h3>
+                    <div class="dni">DNI: ${empleado.dni}</div>
+                    <div class="badge">${zonaActiva.nombre}</div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        function seleccionarEmpleado(empleado, event) {
+            // Deseleccionar todos
+            document.querySelectorAll('.empleado-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Seleccionar el nuevo
+            event.currentTarget.classList.add('selected');
+            empleadoSeleccionado = empleado;
+            accionSeleccionada = null;
+            
+            // Mostrar formulario
+            mostrarFormularioAccion();
+        }
+        
+        // ============================================
+        // FUNCIONES DE ACCIÓN
+        // ============================================
+        
+        function seleccionarAccion(tipo) {
+            accionSeleccionada = tipo;
+            
+            // Actualizar botones
+            document.querySelectorAll('.accion-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            event.currentTarget.classList.add('selected');
+            
+            // Actualizar formulario
+            actualizarFormulario();
+        }
+        
+        function actualizarFormulario() {
+            const formularioDiv = document.getElementById('formularioDinamico');
+            
+            // Generar opciones de locales según la zona
+            let localesOptions = '';
+            for (const [id, nombre] of Object.entries(zonaActiva.locales)) {
+                localesOptions += `<option value="${id}">${nombre}</option>`;
+            }
+            
+            if (accionSeleccionada === 'entrada') {
+                formularioDiv.innerHTML = `
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fecha">Fecha de Entrada</label>
+                            <input type="date" id="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora">Hora de Entrada</label>
+                            <input type="time" id="hora" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="local">Local</label>
+                            <select id="local" required>
+                                <option value="">Seleccione un local</option>
+                                ${localesOptions}
+                            </select>
+                        </div>
+                    </div>
+                `;
+            } else if (accionSeleccionada === 'salida') {
+                formularioDiv.innerHTML = `
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fecha">Fecha de Salida</label>
+                            <input type="date" id="fecha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora">Hora de Salida</label>
+                            <input type="time" id="hora" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="local">Local</label>
+                            <select id="local" required>
+                                <option value="">Seleccione un local</option>
+                                ${localesOptions}
+                            </select>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Establecer valores por defecto
+            setDefaultValues();
+        }
+        
+        function setDefaultValues() {
+            const hoy = new Date().toISOString().split('T')[0];
+            
+            if (document.getElementById('fecha')) {
+                document.getElementById('fecha').value = hoy;
+                
+                if (accionSeleccionada === 'entrada') {
+                    document.getElementById('hora').value = '08:00';
+                } else {
+                    document.getElementById('hora').value = '17:00';
+                }
+            }
+            
+            // Seleccionar primer local por defecto
+            if (document.getElementById('local') && document.getElementById('local').options.length > 1) {
+                document.getElementById('local').selectedIndex = 1;
+            }
+        }
+        
+        function mostrarFormularioAccion() {
+            if (!empleadoSeleccionado) return;
+            
+            // Actualizar info del empleado
+            document.getElementById('empleadoSeleccionado').innerHTML = `
+                <strong>Empleado:</strong> ${empleadoSeleccionado.nombre}<br>
+                <strong>DNI:</strong> ${empleadoSeleccionado.dni}<br>
+                <strong>Zona:</strong> ${zonaActiva.nombre}
+            `;
+            
+            // Resetear acción seleccionada
+            accionSeleccionada = null;
+            document.querySelectorAll('.accion-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Limpiar formulario
+            document.getElementById('formularioDinamico').innerHTML = '';
+            document.getElementById('auditoriaInfo').style.display = 'none';
+            
+            // Mostrar formulario
+            document.getElementById('accionForm').style.display = 'block';
+            
+            // Scroll al formulario
+            document.getElementById('accionForm').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function cancelarAccion() {
+            empleadoSeleccionado = null;
+            accionSeleccionada = null;
+            document.getElementById('accionForm').style.display = 'none';
+            
+            // Deseleccionar todos los empleados
+            document.querySelectorAll('.empleado-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Deseleccionar botones de acción
+            document.querySelectorAll('.accion-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            clearAlerts();
+        }
+        
+        // ============================================
+        // REGISTRAR ACCIÓN MANUAL (CON ZONA)
+        // ============================================
+        
+        async function registrarAccionManual() {
+            if (!empleadoSeleccionado) {
+                showError('errorAlert', 'Por favor seleccione un empleado');
+                return;
+            }
+            
+            if (!accionSeleccionada) {
+                showError('errorAlert', 'Por favor seleccione una acción');
+                return;
+            }
+            
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            const local = document.getElementById('local').value;
+            
+            if (!fecha || !hora || !local) {
+                showError('errorAlert', 'Por favor complete todos los campos');
+                return;
+            }
+            
+            const btn = document.getElementById('registrarBtn');
+            btn.disabled = true;
+            btn.textContent = 'Registrando...';
+            
+            try {
+                const formData = new FormData();
+                formData.append('action', 'registroManual');
+                formData.append('dni', empleadoSeleccionado.dni);
+                formData.append('tipo', accionSeleccionada);
+                formData.append('fecha', fecha);
+                formData.append('hora', hora);
+                formData.append('local', local);
+                formData.append('zona', zonaActiva.id); // Enviar zona para auditoría
+                formData.append('password_admin', 'HELADERIA123'); // Contraseña del dueño
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess(data.message);
+                    
+                    // Mostrar información de auditoría
+                    document.getElementById('fechaRegistro').textContent = new Date().toLocaleString('es-AR');
+                    document.getElementById('adminZona').textContent = zonaActiva.nombre;
+                    document.getElementById('auditoriaZona').textContent = zonaActiva.nombre;
+                    document.getElementById('tipoAccion').textContent = accionSeleccionada === 'entrada' ? 'Entrada' : 'Salida';
+                    document.getElementById('auditoriaInfo').style.display = 'block';
+                    
+                    // Resetear después de 3 segundos
+                    setTimeout(() => {
+                        cancelarAccion();
+                        cargarEmpleadosZona();
+                    }, 3000);
+                } else {
+                    showError('errorAlert', data.error || 'Error desconocido');
+                }
+            } catch (error) {
+                showError('errorAlert', 'Error de conexión al registrar');
+                console.error('Error en registro manual:', error);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Registrar';
+            }
+        }
+    </script>
+</body>
+</html>
