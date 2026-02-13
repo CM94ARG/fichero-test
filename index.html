@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* 🟢 TU MISMO CSS - SIN CAMBIOS */
         :root {
-            
             --primary: #666666;      
             --secondary: #FF66A8;   
             --secondary-light: #FF99C2; 
@@ -145,6 +145,115 @@
             border-radius: 2px;
         }
         
+        .device-register-box {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.05) 0%, rgba(255, 193, 7, 0.03) 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0 30px;
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid var(--warning);
+        }
+        
+        .device-register-box::before {
+            content: "🔐";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 40px;
+            opacity: 0.1;
+        }
+        
+        .device-register-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .device-register-box p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .device-id {
+            font-family: monospace;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 13px;
+            word-break: break-all;
+            margin: 15px 0;
+            border: 2px dashed var(--warning);
+            color: var(--dark);
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .clave-input-container {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .clave-input {
+            width: 100%;
+            padding: 18px 18px 18px 55px;
+            font-size: 17px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 14px;
+            transition: all 0.3s;
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .clave-input:focus {
+            outline: none;
+            border-color: var(--warning);
+            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
+            background: white;
+        }
+        
+        .clave-input-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--warning);
+            font-size: 20px;
+        }
+        
+        .register-btn {
+            width: 100%;
+            padding: 17px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(to right, var(--warning), #FFB74D);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.25);
+        }
+        
+        .register-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.35);
+            background: linear-gradient(to right, #F57C00, #FB8C00);
+        }
+        
+        .register-btn i {
+            margin-right: 10px;
+            font-size: 17px;
+        }
+        
         .locales-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -172,7 +281,7 @@
             border-left: 5px solid var(--primary);
         }
         
-        .local-btn:hover {
+        .local-btn:hover:not(:disabled) {
             background: white;
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
@@ -244,7 +353,7 @@
             color: var(--accent);
         }
         
-        .salida-btn:hover {
+        .salida-btn:hover:not(:disabled) {
             background: linear-gradient(to right, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.05));
         }
         
@@ -433,11 +542,30 @@
             display: block;
         }
         
+        .message.warning {
+            background: rgba(255, 152, 0, 0.1);
+            color: #856404;
+            border-left-color: var(--warning);
+            display: block;
+        }
+        
         .message.loading {
             background: rgba(255, 152, 0, 0.1);
             color: #e65100;
             border-left-color: var(--warning);
             display: block;
+        }
+        
+        .device-info-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--medium-gray);
+            color: var(--primary);
+            font-size: 11px;
+            line-height: 1.5;
+            opacity: 0.7;
+            word-break: break-all;
         }
         
         .footer {
@@ -480,12 +608,14 @@
                 padding: 16px;
             }
             
-            .dni-input {
+            .dni-input,
+            .clave-input {
                 padding: 16px 16px 16px 50px;
                 font-size: 16px;
             }
             
-            .action-btn {
+            .action-btn,
+            .register-btn {
                 padding: 16px;
             }
         }
@@ -525,12 +655,39 @@
                 <p>Registro de entradas y salidas</p>
             </div>
             
+            <!-- Pantalla de registro de dispositivo -->
+            <div id="screen-device-register" class="screen">
+                <div class="device-register-box">
+                    <h3>🔐 Registro de Dispositivo</h3>
+                    <p>
+                        Es la primera vez que usás este dispositivo.<br>
+                        Ingresá la clave de registro para autorizarlo.
+                    </p>
+                    <div class="device-id" id="deviceIdDisplay">
+                        Generando identificador...
+                    </div>
+                    <div class="clave-input-container">
+                        <i class="fas fa-key"></i>
+                        <input type="password" 
+                               id="registro-clave" 
+                               class="clave-input" 
+                               placeholder="Clave de registro">
+                    </div>
+                    <button class="register-btn" onclick="registrarDispositivo()" id="btnRegistrar">
+                        <i class="fas fa-check-circle"></i> REGISTRAR DISPOSITIVO
+                    </button>
+                    <button class="action-btn back-btn" onclick="recargarPagina()">
+                        <i class="fas fa-redo-alt"></i> REINTENTAR
+                    </button>
+                </div>
+            </div>
             
-            <div id="screen-home" class="screen active">
+            <!-- Pantalla principal -->
+            <div id="screen-home" class="screen">
                 <h3 class="screen-title">Seleccioná tu local</h3>
                 
                 <div class="locales-grid">
-                    <button class="local-btn" onclick="selectLocal('lacroze')">
+                    <button class="local-btn" onclick="selectLocal('lacroze')" id="btn-lacroze">
                         <div class="icon">
                             <i class="fas fa-store"></i>
                         </div>
@@ -540,7 +697,7 @@
                         </div>
                     </button>
                     
-                    <button class="local-btn" onclick="selectLocal('palermo')">
+                    <button class="local-btn" onclick="selectLocal('palermo')" id="btn-palermo">
                         <div class="icon">
                             <i class="fas fa-store"></i>
                         </div>
@@ -550,7 +707,7 @@
                         </div>
                     </button>
                     
-                    <button class="local-btn" onclick="selectLocal('saavedra')">
+                    <button class="local-btn" onclick="selectLocal('saavedra')" id="btn-saavedra">
                         <div class="icon">
                             <i class="fas fa-store"></i>
                         </div>
@@ -562,7 +719,7 @@
                 </div>
                 
                 <div class="salida-section">
-                    <button class="local-btn salida-btn" onclick="selectSalida()">
+                    <button class="local-btn salida-btn" onclick="selectSalida()" id="btn-salida">
                         <div class="icon">
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
@@ -574,6 +731,7 @@
                 </div>
             </div>
             
+            <!-- Pantalla de ingreso de DNI -->
             <div id="screen-dni" class="screen">
                 <div class="local-info-card" id="local-info">
                     <h3>Fichaje de <span id="fichaje-type">ENTRADA</span></h3>
@@ -604,147 +762,473 @@
             
             <div id="message" class="message"></div>
             
+            <!-- Footer con información del dispositivo -->
+            <div id="device-info-footer" class="device-info-footer">
+                <div style="margin-bottom: 5px;">
+                    <i class="fas fa-microchip"></i> Dispositivo: <span id="device-id-short">Verificando...</span>
+                </div>
+                <div id="device-details"></div>
+            </div>
+            
             <div class="footer">
-                <p>Sistema v3.2 • Auditoría completa en registros</p>
-                <p>Todos los fichajes registran información detallada</p>
+                <p>Sistema v5.0 • Seguridad por dispositivo</p>
+                <p>🔐 Registrá tu dispositivo la primera vez</p>
             </div>
         </div>
     </div>
 
-  <script>
-  
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYRKU8HNbfaGOoMNMcpGbY4lrWp0rbjrv5w0V3HH8ZnqKx5kUv47rtroawa_PtDb4A/exec";
-  const ACTIVATION_ENDPOINT = SCRIPT_URL;
-  
-  function generateDeviceId() {
-      let id = localStorage.getItem("deviceId");
-      if (!id) {
-          id = crypto.randomUUID();
-          localStorage.setItem("deviceId", id);
-      }
-      return id;
-  }
-  
-  async function checkDeviceRegistration() {
-      const deviceId = generateDeviceId();
-  
-      const res = await fetch(ACTIVATION_ENDPOINT + "?action=checkDevice&deviceId=" + deviceId);
-      const data = await res.json();
-  
-      if (!data.allowed) {
-          showActivationScreen();
-      }
-  }
-  
-  function showActivationScreen() {
-      document.body.innerHTML = `
-      <div style="max-width:400px;margin:60px auto;font-family:sans-serif;text-align:center">
-          <h2>🔐 Activar dispositivo</h2>
-          <p>Ingresá el código del local</p>
-          <input id="activationCode" style="padding:12px;width:100%;margin:15px 0">
-          <button onclick="activateDevice()" style="padding:12px;width:100%">Activar</button>
-          <div id="actMsg"></div>
-      </div>`;
-  }
-  
-  async function activateDevice() {
-      const code = document.getElementById("activationCode").value.trim();
-      const deviceId = generateDeviceId();
-  
-      const form = new FormData();
-      form.append("action", "activateDevice");
-      form.append("code", code);
-      form.append("deviceId", deviceId);
-  
-      const res = await fetch(ACTIVATION_ENDPOINT, { method:"POST", body:form });
-      const data = await res.json();
-  
-      if (data.success) {
-          location.reload();
-      } else {
-          document.getElementById("actMsg").innerText = "Código inválido";
-      }
-  }
-  
-  checkDeviceRegistration();
-  
-  function detectDeviceInfo() {
-      const userAgent = navigator.userAgent;
-      let deviceInfo = {
-          tipo: '',
-          marca: '',
-          navegador: '',
-          sistemaOperativo: '',
-          resolucion: `${screen.width}x${screen.height}`,
-          idioma: navigator.language,
-          zonaHoraria: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          cookies: navigator.cookieEnabled ? 'Sí' : 'No'
-      };
-  
-      if (/mobile/i.test(userAgent)) {
-          deviceInfo.tipo = 'Celular';
-      } else {
-          deviceInfo.tipo = 'Computadora';
-      }
-  
-      deviceInfo.navegador = /chrome/i.test(userAgent) ? 'Chrome' : 'Otro';
-      deviceInfo.sistemaOperativo = /windows/i.test(userAgent) ? 'Windows' : 'Otro';
-  
-      return deviceInfo;
-  }
-  
-  async function obtenerIP() {
-      try {
-          const r = await fetch('https://api.ipify.org?format=json');
-          return (await r.json()).ip;
-      } catch { return 'No detectada'; }
-  }
-  
-  let currentLocal = '';
-  let currentType = 'entrada';
-  
-  function selectLocal(local) {
-      currentLocal = local;
-      currentType = 'entrada';
-      showScreen('screen-dni');
-  }
-  
-  function selectSalida() {
-      currentLocal = 'general';
-      currentType = 'salida';
-      showScreen('screen-dni');
-  }
-  
-  function goBack() {
-      showScreen('screen-home');
-  }
-  
-  function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-  }
-  
-  async function submitFichaje() {
-      const dni = document.getElementById('dni-input').value.trim();
-      if (!dni) return;
-  
-      const deviceInfo = detectDeviceInfo();
-      const userIP = await obtenerIP();
-      const deviceId = generateDeviceId();
-  
-      const formData = new FormData();
-      formData.append('dni', dni);
-      formData.append('tipo', currentType);
-      formData.append('local', currentLocal);
-      formData.append('deviceId', deviceId);
-      formData.append('ip_publica', userIP);
-  
-      fetch(SCRIPT_URL, { method:'POST', body:formData })
-      .then(r=>r.json())
-      .then(d=>alert(d.message || d.error));
-  }
-  
-  </script>
-
+    <script>
+        // ============================================
+        // CONFIGURACIÓN
+        // ============================================
+        
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQVKHBWJRI42wGyPEL5sy5w6NcVKGCVHWT6HqPSTq_pK4RmPb_hPjXRqwEeFQSBr8I/exec";
+        
+        // ============================================
+        // ESTADO DE LA APLICACIÓN
+        // ============================================
+        
+        let deviceId = null;
+        let dispositivoAutorizado = false;
+        let currentLocal = '';
+        let currentType = 'entrada';
+        
+        // ============================================
+        // GENERAR ID ÚNICO DEL DISPOSITIVO
+        // ============================================
+        
+        function generarDeviceId() {
+            try {
+                let stored = localStorage.getItem('heladerias_device_id');
+                if (stored && stored !== 'pending' && stored !== 'unknown' && stored.length > 10) {
+                    return stored;
+                }
+                
+                const screen = `${window.screen.width}x${window.screen.height}x${window.screen.colorDepth}`;
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                const language = navigator.language;
+                const platform = navigator.platform || 'unknown';
+                const hardware = navigator.hardwareConcurrency || 'unknown';
+                const memory = navigator.deviceMemory || 'unknown';
+                const userAgent = navigator.userAgent;
+                
+                const fingerprint = [
+                    screen, timezone, language, platform, hardware, memory,
+                    new Date().getTimezoneOffset(), userAgent
+                ].join('|');
+                
+                let hash = 0;
+                for (let i = 0; i < fingerprint.length; i++) {
+                    const char = fingerprint.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                
+                const newDeviceId = `DANIEL_${Math.abs(hash).toString(36)}_${Date.now().toString(36)}`;
+                localStorage.setItem('heladerias_device_id', newDeviceId);
+                return newDeviceId;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                return `DANIEL_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            }
+        }
+        
+        // ============================================
+        // DETECTAR INFORMACIÓN DEL DISPOSITIVO
+        // ============================================
+        
+        function detectDeviceInfo() {
+            const userAgent = navigator.userAgent;
+            let deviceInfo = {
+                tipo: '',
+                marca: '',
+                navegador: '',
+                sistemaOperativo: ''
+            };
+            
+            if (/mobile/i.test(userAgent)) {
+                deviceInfo.tipo = 'Celular';
+                if (/samsung/i.test(userAgent)) deviceInfo.marca = 'Samsung';
+                else if (/iphone|ipod/i.test(userAgent)) deviceInfo.marca = 'iPhone';
+                else if (/huawei/i.test(userAgent)) deviceInfo.marca = 'Huawei';
+                else if (/xiaomi|redmi|poco/i.test(userAgent)) deviceInfo.marca = 'Xiaomi';
+                else if (/motorola/i.test(userAgent)) deviceInfo.marca = 'Motorola';
+                else deviceInfo.marca = 'Otro celular';
+            } else if (/tablet|ipad/i.test(userAgent)) {
+                deviceInfo.tipo = 'Tablet';
+                deviceInfo.marca = /ipad/i.test(userAgent) ? 'iPad' : 'Tablet Android';
+            } else {
+                deviceInfo.tipo = 'Computadora';
+                deviceInfo.marca = window.screen.width < 1440 ? 'Laptop' : 'PC Escritorio';
+            }
+            
+            if (/chrome/i.test(userAgent) && !/edg/i.test(userAgent)) deviceInfo.navegador = 'Chrome';
+            else if (/firefox/i.test(userAgent)) deviceInfo.navegador = 'Firefox';
+            else if (/safari/i.test(userAgent) && !/chrome/i.test(userAgent)) deviceInfo.navegador = 'Safari';
+            else if (/edg/i.test(userAgent)) deviceInfo.navegador = 'Edge';
+            else deviceInfo.navegador = 'Otro';
+            
+            if (/windows/i.test(userAgent)) {
+                deviceInfo.sistemaOperativo = /windows nt 10/i.test(userAgent) ? 'Windows 10/11' : 'Windows';
+            } else if (/macintosh|mac os x/i.test(userAgent)) {
+                deviceInfo.sistemaOperativo = 'macOS';
+            } else if (/android/i.test(userAgent)) {
+                deviceInfo.sistemaOperativo = 'Android';
+            } else if (/ios|iphone os/i.test(userAgent)) {
+                deviceInfo.sistemaOperativo = 'iOS';
+            } else {
+                deviceInfo.sistemaOperativo = 'Otro';
+            }
+            
+            return deviceInfo;
+        }
+        
+        // ============================================
+        // OBTENER IP PÚBLICA
+        // ============================================
+        
+        async function obtenerIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error('Error obteniendo IP:', error);
+                return 'No detectada';
+            }
+        }
+        
+        // ============================================
+        // VALIDAR DISPOSITIVO
+        // ============================================
+        
+        async function validarDispositivo() {
+            try {
+                mostrarLoading('btnRegistrar', 'Verificando dispositivo...');
+                
+                deviceId = generarDeviceId();
+                actualizarInfoDispositivo();
+                
+                const registrado = localStorage.getItem('heladerias_device_registered');
+                if (registrado === 'true') {
+                    dispositivoAutorizado = true;
+                    ocultarPantallaRegistro();
+                    return true;
+                }
+                
+                dispositivoAutorizado = false;
+                mostrarPantallaRegistro();
+                return false;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                dispositivoAutorizado = false;
+                mostrarPantallaRegistro();
+                return false;
+            } finally {
+                ocultarLoading('btnRegistrar', 'REGISTRAR DISPOSITIVO');
+            }
+        }
+        
+        // ============================================
+        // 🟢 REGISTRAR DISPOSITIVO - CON FORMDATA (COMO ANTES)
+        // ============================================
+        
+        async function registrarDispositivo() {
+            const clave = document.getElementById('registro-clave').value;
+            
+            if (!clave) {
+                showMessage('❌ Ingresá la clave de registro', 'warning');
+                return;
+            }
+            
+            try {
+                mostrarLoading('btnRegistrar', 'Registrando dispositivo...');
+                
+                const ip = await obtenerIP();
+                const deviceInfo = detectDeviceInfo();
+                
+                // ✅ VOLVEMOS A FORMDATA - FUNCIONA CON APPS SCRIPT
+                const formData = new FormData();
+                formData.append('action', 'registrarDispositivo');
+                formData.append('device_id', deviceId);
+                formData.append('clave_registro', clave);
+                formData.append('ip_publica', ip);
+                formData.append('dispositivo_tipo', deviceInfo.tipo);
+                formData.append('dispositivo_marca', deviceInfo.marca);
+                formData.append('navegador', deviceInfo.navegador);
+                formData.append('sistema_operativo', deviceInfo.sistemaOperativo);
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData  // 👈 SIN mode, SIN headers
+                });
+                
+                const data = await response.json(); // ✅ PODEMOS LEER LA RESPUESTA
+                
+                if (data.success) {
+                    dispositivoAutorizado = true;
+                    localStorage.setItem('heladerias_device_registered', 'true');
+                    showMessage('✅ Dispositivo registrado correctamente', 'success');
+                    
+                    setTimeout(() => {
+                        ocultarPantallaRegistro();
+                        hideMessage();
+                    }, 2000);
+                } else {
+                    showMessage(data.error || '❌ Error al registrar dispositivo', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('❌ Error de conexión. Verificá tu internet.', 'error');
+            } finally {
+                ocultarLoading('btnRegistrar', 'REGISTRAR DISPOSITIVO');
+            }
+        }
+        
+        // ============================================
+        // 🟢 FICHAJE - CON FORMDATA (COMO ANTES)
+        // ============================================
+        
+        async function submitFichaje() {
+            if (!dispositivoAutorizado) {
+                showMessage('🔐 Dispositivo no autorizado. Registralo primero.', 'warning');
+                goBack();
+                return;
+            }
+            
+            const dni = document.getElementById('dni-input').value.trim();
+            
+            if (!dni || !/^\d{7,8}$/.test(dni)) {
+                showMessage('❌ DNI inválido. Debe tener 7 u 8 números.', 'error');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
+            
+            showMessage('⏳ Procesando tu fichaje...', 'loading');
+            
+            const deviceInfo = detectDeviceInfo();
+            const ip = await obtenerIP();
+            
+            // ✅ VOLVEMOS A FORMDATA - FUNCIONA CON APPS SCRIPT
+            const formData = new FormData();
+            formData.append('dni', dni);
+            formData.append('tipo', currentType);
+            formData.append('local', currentLocal);
+            formData.append('device_id', deviceId);
+            formData.append('ip_publica', ip);
+            formData.append('dispositivo_tipo', deviceInfo.tipo);
+            formData.append('dispositivo_marca', deviceInfo.marca);
+            formData.append('navegador', deviceInfo.navegador);
+            formData.append('sistema_operativo', deviceInfo.sistemaOperativo);
+            
+            try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData  // 👈 SIN mode, SIN headers
+                });
+                
+                const data = await response.json(); // ✅ PODEMOS LEER LA RESPUESTA
+                
+                if (data.success) {
+                    let message = `✅ ${data.message}`;
+                    if (data.horas) {
+                        message += `<br><small>Horas trabajadas: ${data.horas}</small>`;
+                    }
+                    showMessage(message, 'success');
+                    
+                    setTimeout(() => {
+                        goBack();
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> CONFIRMAR FICHAJE';
+                        document.getElementById('dni-input').value = '';
+                    }, 2000);
+                } else {
+                    showMessage(data.error || '❌ Error en el fichaje', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> CONFIRMAR FICHAJE';
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('❌ Error de conexión. Intentá nuevamente.', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> CONFIRMAR FICHAJE';
+            }
+        }
+        
+        // ============================================
+        // FUNCIONES DE UI (TODO IGUAL)
+        // ============================================
+        
+        function mostrarPantallaRegistro() {
+            document.getElementById('screen-home').classList.remove('active');
+            document.getElementById('screen-dni').classList.remove('active');
+            document.getElementById('screen-device-register').classList.add('active');
+            
+            const deviceIdDisplay = document.getElementById('deviceIdDisplay');
+            if (deviceIdDisplay) {
+                deviceIdDisplay.textContent = deviceId || generarDeviceId();
+            }
+            deshabilitarBotonesFichaje(true);
+        }
+        
+        function ocultarPantallaRegistro() {
+            document.getElementById('screen-device-register').classList.remove('active');
+            document.getElementById('screen-home').classList.add('active');
+            deshabilitarBotonesFichaje(false);
+        }
+        
+        function deshabilitarBotonesFichaje(disabled) {
+            const btns = ['btn-lacroze', 'btn-palermo', 'btn-saavedra', 'btn-salida'];
+            btns.forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.disabled = disabled;
+            });
+        }
+        
+        function mostrarLoading(buttonId, texto) {
+            const btn = document.getElementById(buttonId);
+            if (btn) {
+                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${texto}`;
+                btn.disabled = true;
+            }
+        }
+        
+        function ocultarLoading(buttonId, texto) {
+            const btn = document.getElementById(buttonId);
+            if (btn) {
+                btn.innerHTML = `<i class="fas fa-check-circle"></i> ${texto}`;
+                btn.disabled = false;
+            }
+        }
+        
+        function actualizarInfoDispositivo() {
+            const deviceIdShort = document.getElementById('device-id-short');
+            if (deviceIdShort) {
+                const id = deviceId || 'No disponible';
+                deviceIdShort.textContent = id.substring(0, 15) + '...';
+            }
+            
+            const deviceDetails = document.getElementById('device-details');
+            if (deviceDetails) {
+                const info = detectDeviceInfo();
+                deviceDetails.innerHTML = `
+                    <i class="fas fa-${info.tipo === 'Computadora' ? 'desktop' : 'mobile-alt'}"></i> 
+                    ${info.tipo} · ${info.navegador} · ${info.sistemaOperativo}
+                `;
+            }
+        }
+        
+        function recargarPagina() {
+            location.reload();
+        }
+        
+        function selectLocal(local) {
+            if (!dispositivoAutorizado) {
+                showMessage('🔐 Dispositivo no autorizado. Registralo primero.', 'warning');
+                return;
+            }
+            
+            currentLocal = local;
+            currentType = 'entrada';
+            
+            const localNames = { 'lacroze': 'LACROZE', 'palermo': 'PALERMO', 'saavedra': 'SAAVEDRA' };
+            
+            const localInfoCard = document.getElementById('local-info');
+            localInfoCard.className = 'local-info-card';
+            localInfoCard.innerHTML = `
+                <h3>Fichaje de <span id="fichaje-type">ENTRADA</span></h3>
+                <div class="local-name" id="current-local">${localNames[local]}</div>
+                <div class="fichaje-type" id="type-badge">ENTRADA</div>
+            `;
+            
+            showScreen('screen-dni');
+            document.getElementById('dni-input').value = '';
+            document.getElementById('dni-input').focus();
+            hideMessage();
+        }
+        
+        function selectSalida() {
+            if (!dispositivoAutorizado) {
+                showMessage('🔐 Dispositivo no autorizado. Registralo primero.', 'warning');
+                return;
+            }
+            
+            currentLocal = 'general';
+            currentType = 'salida';
+            
+            const localInfoCard = document.getElementById('local-info');
+            localInfoCard.className = 'local-info-card salida';
+            localInfoCard.innerHTML = `
+                <h3>Fichaje de <span id="fichaje-type">SALIDA</span></h3>
+                <div class="local-name" id="current-local">DESDE CUALQUIER LUGAR</div>
+                <div class="fichaje-type" id="type-badge">SALIDA</div>
+            `;
+            
+            showScreen('screen-dni');
+            document.getElementById('dni-input').value = '';
+            document.getElementById('dni-input').focus();
+            hideMessage();
+        }
+        
+        function goBack() {
+            showScreen('screen-home');
+            hideMessage();
+        }
+        
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+        
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = text;
+            messageDiv.className = `message ${type}`;
+        }
+        
+        function hideMessage() {
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = '';
+        }
+        
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        
+        async function inicializar() {
+            deviceId = generarDeviceId();
+            actualizarInfoDispositivo();
+            await validarDispositivo();
+            
+            const dniInput = document.getElementById('dni-input');
+            if (dniInput) {
+                dniInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') submitFichaje();
+                });
+                dniInput.addEventListener('input', function(event) {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+            
+            const claveInput = document.getElementById('registro-clave');
+            if (claveInput) {
+                claveInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') registrarDispositivo();
+                });
+            }
+        }
+        
+        window.onload = inicializar;
+    </script>
 </body>
 </html>
