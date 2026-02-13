@@ -1,656 +1,717 @@
-<style>
-        /* ============================================
-           TU MISMO CSS ORIGINAL - SIN CAMBIOS
-           ============================================ */
-        :root {
-            --primary: #666666;      
-            --secondary: #FF66A8;   
-            --secondary-light: #FF99C2; 
-            --accent: #FF3366;      
-            --light: #FFFFFF;        
-            --light-gray: #F8F8F8;   
-            --medium-gray: #E0E0E0;  
-            --dark: #333333;        
-            --success: #4CAF50;      
-            --warning: #FF9800;      
-            --danger: #FF5252;       
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--light);
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            border: 1px solid var(--medium-gray);
-        }
-        
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, #808080 100%);
-            color: white;
-            padding: 30px 25px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .header h1 {
-            font-size: 26px;
-            margin-bottom: 8px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        
-        .header .subtitle {
-            font-size: 15px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-        
-        .content {
-            padding: 0 25px 25px;
-        }
-        
-        .logo {
-            text-align: center;
-            padding: 25px 25px 0;
-            margin-bottom: 5px;
-        }
-        
-        .logo-icon {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            box-shadow: 0 6px 20px rgba(255, 102, 168, 0.3);
-        }
-        
-        .logo-icon i {
-            font-size: 32px;
-            color: white;
-        }
-        
-        .logo h2 {
-            color: var(--primary);
-            font-size: 24px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-        
-        .logo p {
-            color: var(--primary);
-            font-size: 14px;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-        
-        .screen {
-            display: none;
-        }
-        
-        .screen.active {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .screen-title {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--dark);
-            font-size: 18px;
-            font-weight: 600;
-            position: relative;
-            padding-bottom: 12px;
-        }
-        
-        .screen-title::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, var(--secondary), var(--secondary-light));
-            border-radius: 2px;
-        }
-        
-        /* ============================================
-           PANTALLA DE SELECCIÓN DE ZONA (PRIMERA VEZ)
-           ============================================ */
-        .zonas-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .zona-card {
-            background: var(--light-gray);
-            border-radius: 16px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 3px 8px var(--shadow);
-        }
-        
-        .zona-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            background: white;
-            border-color: var(--secondary-light);
-        }
-        
-        .zona-card i {
-            font-size: 40px;
-            color: var(--secondary);
-            margin-bottom: 15px;
-        }
-        
-        .zona-card h3 {
-            font-size: 20px;
-            color: var(--dark);
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-        
-        .zona-card p {
-            color: var(--primary);
-            font-size: 14px;
-        }
-        
-        /* ============================================
-           PANTALLA DE CLAVE (PRIMERA VEZ)
-           ============================================ */
-        .clave-box {
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.05) 0%, rgba(255, 193, 7, 0.03) 100%);
-            border-radius: 16px;
-            padding: 30px 25px;
-            margin: 20px 0;
-            border-left: 5px solid var(--warning);
-            text-align: center;
-        }
-        
-        .clave-box i {
-            font-size: 50px;
-            color: var(--warning);
-            margin-bottom: 15px;
-        }
-        
-        .clave-box h2 {
-            color: #856404;
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-        
-        .clave-box p {
-            color: #666;
-            margin-bottom: 25px;
-        }
-        
-        .zona-seleccionada {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--warning);
-            margin-bottom: 20px;
-        }
-        
-        .clave-input-container {
-            position: relative;
-            margin: 20px 0;
-        }
-        
-        .clave-input {
-            width: 100%;
-            padding: 18px 18px 18px 55px;
-            font-size: 17px;
-            border: 2px solid var(--medium-gray);
-            border-radius: 14px;
-            transition: all 0.3s;
-            background: var(--light-gray);
-            color: var(--dark);
-        }
-        
-        .clave-input:focus {
-            outline: none;
-            border-color: var(--warning);
-            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
-            background: white;
-        }
-        
-        .clave-input-container i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--warning);
-            font-size: 20px;
-        }
-        
-        /* ============================================
-           PANTALLA PRINCIPAL (LOCALES)
-           ============================================ */
-        .zona-badge {
-            background: rgba(102,102,102,0.05);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-left: 5px solid var(--secondary);
-        }
-        
-        .zona-badge span {
-            font-weight: 700;
-            color: var(--secondary);
-        }
-        
-        .locales-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-        
-        .local-btn {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 14px;
-            background: var(--light-gray);
-            color: var(--dark);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 3px 8px var(--shadow);
-            border-left: 5px solid var(--primary);
-        }
-        
-        .local-btn:hover:not(:disabled) {
-            background: white;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-        }
-        
-        .local-btn .icon {
-            background: rgba(102, 102, 102, 0.1);
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 20px;
-            color: var(--primary);
-            flex-shrink: 0;
-        }
-        
-        .local-btn .local-info {
-            text-align: left;
-        }
-        
-        .local-btn .local-name {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 3px;
-            color: var(--dark);
-        }
-        
-        .local-btn .local-type {
-            font-size: 12px;
-            color: var(--primary);
-            font-weight: 400;
-        }
-        
-        .salida-section {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid var(--medium-gray);
-            position: relative;
-        }
-        
-        .salida-section::before {
-            content: "SALIDA";
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--light);
-            padding: 0 15px;
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        .salida-btn {
-            border-left: 5px solid var(--accent);
-            background: linear-gradient(to right, rgba(255, 51, 102, 0.05), rgba(255, 51, 102, 0.02));
-        }
-        
-        .salida-btn .icon {
-            background: rgba(255, 51, 102, 0.15);
-            color: var(--accent);
-        }
-        
-        .salida-btn .local-name {
-            color: var(--accent);
-        }
-        
-        .salida-btn:hover:not(:disabled) {
-            background: linear-gradient(to right, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.05));
-        }
-        
-        /* ============================================
-           PANTALLA DE DNI
-           ============================================ */
-        .local-info-card {
-            background: linear-gradient(135deg, rgba(102, 102, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
-            padding: 20px;
-            border-radius: 14px;
-            text-align: center;
-            margin-bottom: 25px;
-            border: 1px solid var(--medium-gray);
-            position: relative;
-            overflow: hidden;
-            border-left: 5px solid var(--primary);
-        }
-        
-        .local-info-card.salida {
-            background: linear-gradient(135deg, rgba(255, 51, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
-            border-left-color: var(--accent);
-        }
-        
-        .local-info-card h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
-            color: var(--dark);
-        }
-        
-        .local-info-card .local-name {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-        
-        .local-info-card.salida .local-name {
-            color: var(--accent);
-        }
-        
-        .local-info-card .fichaje-type {
-            display: inline-block;
-            padding: 5px 15px;
-            background: var(--primary);
-            color: white;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 5px;
-            letter-spacing: 0.5px;
-        }
-        
-        .local-info-card.salida .fichaje-type {
-            background: var(--accent);
-        }
-        
-        .input-group {
-            margin: 25px 0;
-        }
-        
-        .dni-label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 15px;
-            text-align: center;
-        }
-        
-        .dni-input-container {
-            position: relative;
-        }
-        
-        .dni-input {
-            width: 100%;
-            padding: 18px 18px 18px 55px;
-            font-size: 17px;
-            border: 2px solid var(--medium-gray);
-            border-radius: 14px;
-            text-align: center;
-            transition: all 0.3s;
-            font-weight: 500;
-            background: var(--light-gray);
-            color: var(--dark);
-        }
-        
-        .dni-input:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(255, 102, 168, 0.2);
-            background: white;
-        }
-        
-        .dni-input-container i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary);
-            font-size: 20px;
-        }
-        
-        /* ============================================
-           BOTONES
-           ============================================ */
-        .action-btn {
-            width: 100%;
-            padding: 17px;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(to right, var(--primary), #808080);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(102, 102, 102, 0.25);
-        }
-        
-        .action-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(102, 102, 102, 0.35);
-            background: linear-gradient(to right, #555555, #707070);
-        }
-        
-        .action-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .action-btn i {
-            margin-right: 10px;
-            font-size: 17px;
-        }
-        
-        .back-btn {
-            background: linear-gradient(to right, #999999, #aaaaaa);
-            box-shadow: 0 4px 12px rgba(153, 153, 153, 0.25);
-            margin-top: 15px;
-        }
-        
-        .reset-btn {
-            background: linear-gradient(to right, #dc3545, #c82333);
-            margin-top: 20px;
-        }
-        
-        /* ============================================
-           MENSAJES
-           ============================================ */
-        .message {
-            padding: 18px;
-            margin: 20px 0;
-            border-radius: 14px;
-            text-align: center;
-            font-size: 15px;
-            display: none;
-            line-height: 1.5;
-            border-left: 5px solid transparent;
-        }
-        
-        .message.success {
-            background: rgba(76, 175, 80, 0.1);
-            color: #1b5e20;
-            border-left-color: var(--success);
-            display: block;
-        }
-        
-        .message.error {
-            background: rgba(255, 82, 82, 0.1);
-            color: #b71c1c;
-            border-left-color: var(--danger);
-            display: block;
-        }
-        
-        .message.warning {
-            background: rgba(255, 152, 0, 0.1);
-            color: #856404;
-            border-left-color: var(--warning);
-            display: block;
-        }
-        
-        .message.loading {
-            background: rgba(255, 152, 0, 0.1);
-            color: #e65100;
-            border-left-color: var(--warning);
-            display: block;
-        }
-        
-        /* ============================================
-           FOOTER
-           ============================================ */
-        .device-info {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--medium-gray);
-            color: var(--primary);
-            font-size: 11px;
-            line-height: 1.5;
-            opacity: 0.7;
-            word-break: break-all;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--medium-gray);
-            color: var(--primary);
-            font-size: 12px;
-            line-height: 1.5;
-            opacity: 0.7;
-        }
-        
-        .footer p:first-child {
-            margin-bottom: 5px;
-        }
-        
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
-        @media (max-width: 600px) {
-            .container {
-                border-radius: 20px;
-            }
-            
-            .header {
-                padding: 25px 20px;
-            }
-            
-            .header h1 {
-                font-size: 22px;
-            }
-            
-            .logo {
-                padding: 20px 20px 0;
-            }
-            
-            .content {
-                padding: 0 20px 20px;
-            }
-            
-            .local-btn {
-                padding: 16px;
-            }
-            
-            .dni-input,
-            .clave-input {
-                padding: 16px 16px 16px 50px;
-                font-size: 16px;
-            }
-            
-            .action-btn {
-                padding: 16px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            body {
-                padding: 15px;
-            }
-            
-            .header h1 {
-                font-size: 20px;
-            }
-            
-            .logo h2 {
-                font-size: 22px;
-            }
-            
-            .local-btn .local-name {
-                font-size: 16px;
-            }
-        }
-    </style>
+/* ============================================
+   ESTILO.CSS - Sistema de Fichaje Heladerías Daniel
+   Diseño original - Versión separada
+   ============================================ */
+
+:root {
+    --primary: #666666;      
+    --secondary: #FF66A8;   
+    --secondary-light: #FF99C2; 
+    --accent: #FF3366;      
+    --light: #FFFFFF;        
+    --light-gray: #F8F8F8;   
+    --medium-gray: #E0E0E0;  
+    --dark: #333333;        
+    --success: #4CAF50;      
+    --warning: #FF9800;      
+    --danger: #FF5252;       
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: var(--light);
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid var(--medium-gray);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    background: linear-gradient(135deg, var(--primary) 0%, #808080 100%);
+    color: white;
+    padding: 30px 25px;
+    text-align: center;
+    position: relative;
+}
+
+.header h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.header .subtitle {
+    font-size: 15px;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+
+.content {
+    padding: 0 25px 25px;
+}
+
+.logo {
+    text-align: center;
+    padding: 25px 25px 0;
+    margin-bottom: 5px;
+}
+
+.logo-icon {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    box-shadow: 0 6px 20px rgba(255, 102, 168, 0.3);
+}
+
+.logo-icon i {
+    font-size: 32px;
+    color: white;
+}
+
+.logo h2 {
+    color: var(--primary);
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.logo p {
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* ============================================
+   PANTALLAS
+   ============================================ */
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.screen-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--dark);
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.screen-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--secondary), var(--secondary-light));
+    border-radius: 2px;
+}
+
+/* ============================================
+   ZONAS - SELECCIÓN PRIMERA VEZ
+   ============================================ */
+
+.zonas-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.zona-card {
+    background: var(--light-gray);
+    border-radius: 16px;
+    padding: 25px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    border-left: 5px solid var(--primary);
+    box-shadow: 0 3px 8px var(--shadow);
+}
+
+.zona-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    background: white;
+    border-color: var(--secondary-light);
+}
+
+.zona-card i {
+    font-size: 40px;
+    color: var(--secondary);
+    margin-bottom: 15px;
+}
+
+.zona-card h3 {
+    font-size: 20px;
+    color: var(--dark);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.zona-card p {
+    color: var(--primary);
+    font-size: 14px;
+}
+
+/* ============================================
+   CLAVE - INGRESO PRIMERA VEZ
+   ============================================ */
+
+.clave-box {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.05) 0%, rgba(255, 193, 7, 0.03) 100%);
+    border-radius: 16px;
+    padding: 30px 25px;
+    margin: 20px 0;
+    border-left: 5px solid var(--warning);
+    text-align: center;
+}
+
+.clave-box i {
+    font-size: 50px;
+    color: var(--warning);
+    margin-bottom: 15px;
+}
+
+.clave-box h2 {
+    color: #856404;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.clave-box p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.zona-seleccionada {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   INPUTS - GENERAL
+   ============================================ */
+
+.clave-input-container,
+.dni-input-container {
+    position: relative;
+    margin: 20px 0;
+}
+
+.clave-input,
+.dni-input {
+    width: 100%;
+    padding: 18px 18px 18px 55px;
+    font-size: 17px;
+    border: 2px solid var(--medium-gray);
+    border-radius: 14px;
+    transition: all 0.3s;
+    background: var(--light-gray);
+    color: var(--dark);
+}
+
+.clave-input:focus,
+.dni-input:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(255, 102, 168, 0.2);
+    background: white;
+}
+
+.clave-input-container i,
+.dni-input-container i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary);
+    font-size: 20px;
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+.action-btn {
+    width: 100%;
+    padding: 17px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(to right, var(--primary), #808080);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(102, 102, 102, 0.25);
+}
+
+.action-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 102, 102, 0.35);
+    background: linear-gradient(to right, #555555, #707070);
+}
+
+.action-btn:active:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.action-btn i {
+    margin-right: 10px;
+    font-size: 17px;
+}
+
+.back-btn {
+    background: linear-gradient(to right, #999999, #aaaaaa);
+    box-shadow: 0 4px 12px rgba(153, 153, 153, 0.25);
+    margin-top: 15px;
+}
+
+.back-btn:hover:not(:disabled) {
+    background: linear-gradient(to right, #888888, #999999);
+    box-shadow: 0 8px 20px rgba(153, 153, 153, 0.35);
+}
+
+.reset-btn {
+    background: linear-gradient(to right, #dc3545, #c82333);
+    margin-top: 20px;
+}
+
+/* ============================================
+   BADGE DE ZONA
+   ============================================ */
+
+.zona-badge {
+    background: rgba(102, 102, 102, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-left: 5px solid var(--secondary);
+}
+
+.zona-badge span {
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+/* ============================================
+   LOCALES - GRID DE BOTONES
+   ============================================ */
+
+.locales-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.local-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 14px;
+    background: var(--light-gray);
+    color: var(--dark);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 3px 8px var(--shadow);
+    border-left: 5px solid var(--primary);
+}
+
+.local-btn:hover:not(:disabled) {
+    background: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.local-btn .icon {
+    background: rgba(102, 102, 102, 0.1);
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 20px;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.local-btn .local-info {
+    text-align: left;
+}
+
+.local-btn .local-name {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: var(--dark);
+}
+
+.local-btn .local-type {
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 400;
+}
+
+/* ============================================
+   SECCIÓN DE SALIDA
+   ============================================ */
+
+.salida-section {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid var(--medium-gray);
+    position: relative;
+}
+
+.salida-section::before {
+    content: "SALIDA";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--light);
+    padding: 0 15px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.salida-btn {
+    border-left: 5px solid var(--accent);
+    background: linear-gradient(to right, rgba(255, 51, 102, 0.05), rgba(255, 51, 102, 0.02));
+}
+
+.salida-btn .icon {
+    background: rgba(255, 51, 102, 0.15);
+    color: var(--accent);
+}
+
+.salida-btn .local-name {
+    color: var(--accent);
+}
+
+.salida-btn:hover:not(:disabled) {
+    background: linear-gradient(to right, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.05));
+}
+
+/* ============================================
+   PANTALLA DE DNI
+   ============================================ */
+
+.local-info-card {
+    background: linear-gradient(135deg, rgba(102, 102, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+    margin-bottom: 25px;
+    border: 1px solid var(--medium-gray);
+    position: relative;
+    overflow: hidden;
+    border-left: 5px solid var(--primary);
+}
+
+.local-info-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+}
+
+.local-info-card.salida {
+    background: linear-gradient(135deg, rgba(255, 51, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
+    border: 1px solid rgba(255, 51, 102, 0.15);
+}
+
+.local-info-card.salida::before {
+    background: linear-gradient(to bottom, var(--accent), var(--secondary));
+}
+
+.local-info-card h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: var(--dark);
+}
+
+.local-info-card .local-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.local-info-card.salida .local-name {
+    color: var(--accent);
+}
+
+.local-info-card .fichaje-type {
+    display: inline-block;
+    padding: 5px 15px;
+    background: var(--primary);
+    color: white;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+}
+
+.local-info-card.salida .fichaje-type {
+    background: var(--accent);
+}
+
+.input-group {
+    margin: 25px 0;
+}
+
+.dni-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 15px;
+    text-align: center;
+}
+
+/* ============================================
+   MENSAJES
+   ============================================ */
+
+.message {
+    padding: 18px;
+    margin: 20px 0;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 15px;
+    display: none;
+    line-height: 1.5;
+    border-left: 5px solid transparent;
+}
+
+.message.success {
+    background: rgba(76, 175, 80, 0.1);
+    color: #1b5e20;
+    border-left-color: var(--success);
+    display: block;
+}
+
+.message.error {
+    background: rgba(255, 82, 82, 0.1);
+    color: #b71c1c;
+    border-left-color: var(--danger);
+    display: block;
+}
+
+.message.warning {
+    background: rgba(255, 152, 0, 0.1);
+    color: #856404;
+    border-left-color: var(--warning);
+    display: block;
+}
+
+.message.loading {
+    background: rgba(255, 152, 0, 0.1);
+    color: #e65100;
+    border-left-color: var(--warning);
+    display: block;
+}
+
+/* ============================================
+   FOOTER E INFO DE DISPOSITIVO
+   ============================================ */
+
+.device-info {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--medium-gray);
+    color: var(--primary);
+    font-size: 11px;
+    line-height: 1.5;
+    opacity: 0.7;
+    word-break: break-all;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--medium-gray);
+    color: var(--primary);
+    font-size: 12px;
+    line-height: 1.5;
+    opacity: 0.7;
+}
+
+.footer p:first-child {
+    margin-bottom: 5px;
+}
+
+/* ============================================
+   DISPOSITIVO - REGISTRO
+   ============================================ */
+
+.device-id {
+    font-family: monospace;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    border: 2px dashed var(--danger);
+    text-align: center;
+    margin: 15px 0;
+    word-break: break-all;
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
+
+@media (max-width: 600px) {
+    .container {
+        border-radius: 20px;
+    }
+    
+    .header {
+        padding: 25px 20px;
+    }
+    
+    .header h1 {
+        font-size: 22px;
+    }
+    
+    .logo {
+        padding: 20px 20px 0;
+    }
+    
+    .content {
+        padding: 0 20px 20px;
+    }
+    
+    .local-btn {
+        padding: 16px;
+    }
+    
+    .dni-input,
+    .clave-input {
+        padding: 16px 16px 16px 50px;
+        font-size: 16px;
+    }
+    
+    .action-btn {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .logo h2 {
+        font-size: 22px;
+    }
+    
+    .local-btn .local-name {
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   UTILIDADES
+   ============================================ */
+
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
