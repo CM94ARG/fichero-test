@@ -151,7 +151,6 @@ const adminFichaje = {
             formData.append('hora', hora);
             formData.append('local', local);
             formData.append('zona', window.zonaActiva.id);
-            formData.append('password_admin', 'HELADERIA123');
             
             const response = await fetch(ADMIN_CONFIG.API_URL, {
                 method: 'POST',
