@@ -888,38 +888,31 @@
         // ============================================
         
         function generarDeviceId() {
-            try {
-                let stored = localStorage.getItem('heladerias_device_id');
-                if (stored && stored !== 'pending' && stored !== 'unknown' && stored.length > 10) {
-                    return stored;
-                }
-                
-                const screen = `${window.screen.width}x${window.screen.height}x${window.screen.colorDepth}`;
-                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-                const language = navigator.language;
-                const platform = navigator.platform || 'unknown';
-                const hardware = navigator.hardwareConcurrency || 'unknown';
-                const memory = navigator.deviceMemory || 'unknown';
-                const userAgent = navigator.userAgent;
-                
-                const fingerprint = [screen, timezone, language, platform, hardware, memory,
-                    new Date().getTimezoneOffset(), userAgent].join('|');
-                
-                let hash = 0;
-                for (let i = 0; i < fingerprint.length; i++) {
-                    const char = fingerprint.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash;
-                }
-                
-                const newDeviceId = `DANIEL_${Math.abs(hash).toString(36)}_${Date.now().toString(36)}`;
-                localStorage.setItem('heladerias_device_id', newDeviceId);
-                return newDeviceId;
-                
-            } catch (error) {
-                return `DANIEL_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-            }
+    try {
+        // Intentar obtener el guardado
+        let stored = localStorage.getItem('heladerias_device_id');
+        if (stored && stored !== 'pending' && stored !== 'unknown') {
+            return stored;
         }
+        
+        // Generar UUID v4 aleatorio
+        const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+        
+        const deviceId = `DANIEL_${uuid}`;
+        
+        // Guardar para siempre
+        localStorage.setItem('heladerias_device_id', deviceId);
+        return deviceId;
+        
+    } catch (error) {
+        // Fallback
+        return `DANIEL_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    }
+}
         
         // ============================================
         // DETECTAR INFORMACIÓN DEL DISPOSITIVO
