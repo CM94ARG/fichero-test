@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel por Zona - Heladerías Daniel</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🔒 Panel por Zona</h1>
+            <div class="subtitle" id="header-subtitle">Sistema de Fichaje - Acceso a Franquicia</div>
+            <button class="logout-btn" onclick="adminAuth.logout()">Cerrar Sesión</button>
+        </div>
+        
+        <!-- SECCIÓN DE LOGIN -->
+        <div class="login-section" id="loginSection">
+            <h2>Acceso a Zona</h2>
+            
+            <!-- SELECTOR DE ZONA -->
+            <div class="input-group">
+                <label for="zonaSelect">Seleccioná tu zona</label>
+                <select id="zonaSelect" onchange="adminZona.actualizarInfoZona()">
+                    <option value="">-- Elegí una zona --</option>
+                    <option value="zona1">Zona Norte</option>
+                    <option value="zona2">Zona Sur</option>
+                    <option value="zona3">Zona Oeste</option>
+                </select>
+            </div>
+            
+            <!-- INFO DE LA ZONA -->
+            <div id="zonaInfo" style="background: #f8f9ff; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-store" style="color: #1a237e; font-size: 24px;"></i>
+                    <div style="text-align: left;">
+                        <strong id="zonaInfoNombre">Zona Norte</strong><br>
+                        <span id="zonaInfoLocales" style="font-size: 13px; color: #666;">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CAMPO DE CONTRASEÑA -->
+            <div class="input-group">
+                <label for="password">Contraseña de la zona</label>
+                <input type="password" id="password" placeholder="Ingresá la contraseña" autocomplete="off">
+            </div>
+            
+            <button class="btn" onclick="adminAuth.loginZona()" id="loginBtn">Ingresar a mi zona</button>
+            
+            <!-- ZONA GUARDADA -->
+            <div id="zonaGuardadaInfo" style="margin-top: 20px; padding: 15px; background: #e8eaf6; border-radius: 8px; display: none;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-check-circle" style="color: #1a237e;"></i>
+                    <span>Ya tenés una sesión activa. Hacé <a href="#" onclick="adminAuth.usarZonaGuardada()" style="color: #1a237e; font-weight: bold;">clic acá</a> para continuar.</span>
+                </div>
+            </div>
+            
+            <div class="alert error" id="loginError" style="display: none;"></div>
+        </div>
+        
+        <!-- SECCIÓN DE ADMIN -->
+        <div class="admin-section" id="adminSection">
+            <!-- BADGE DE ZONA ACTIVA -->
+            <div class="zona-badge" id="zonaBadge">
+                <div class="zona-info">
+                    <div class="zona-icon" id="zonaIcon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="zona-text">
+                        <h3 id="zonaNombre">Zona Norte</h3>
+                        <p id="zonaDetalle">Cargando información...</p>
+                    </div>
+                </div>
+                <div style="color: #666; font-size: 14px;">
+                    <i class="fas fa-calendar"></i> <span id="fechaHoy"></span>
+                </div>
+            </div>
+            
+            <!-- MENSAJES -->
+            <div class="alert success" id="successAlert" style="display: none;"></div>
+            <div class="alert error" id="errorAlert" style="display: none;"></div>
+            <div class="alert warning" id="warningAlert" style="display: none;"></div>
+            
+            <!-- LOADING -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Cargando datos de la zona...</p>
+            </div>
+            
+            <!-- LISTA DE EMPLEADOS -->
+            <h2 style="margin-bottom: 20px; color: #1a237e;">Empleados de <span id="zonaEmpleadosTitulo"></span></h2>
+            <div class="empleados-container" id="empleadosContainer"></div>
+            
+            <!-- FORMULARIO DE ACCIÓN -->
+            <div class="accion-form" id="accionForm" style="display: none;">
+                <h3>📝 Registro Manual</h3>
+                <div id="empleadoSeleccionado" style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #e1e1e1;"></div>
+                
+                <!-- BOTONES DE ACCIÓN -->
+                <div class="accion-buttons">
+                    <button class="accion-btn entrada" onclick="adminFichaje.seleccionarAccion('entrada')">
+                        📥 Agregar Entrada
+                    </button>
+                    <button class="accion-btn salida" onclick="adminFichaje.seleccionarAccion('salida')">
+                        📤 Agregar Salida
+                    </button>
+                </div>
+                
+                <!-- FORMULARIO DINÁMICO -->
+                <div id="formularioDinamico"></div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn" onclick="adminFichaje.registrarAccionManual()" id="registrarBtn">
+                        Registrar
+                    </button>
+                    <button class="btn secondary" onclick="adminFichaje.cancelarAccion()" style="margin-top: 10px;">
+                        Cancelar
+                    </button>
+                </div>
+                
+                <div class="auditoria-info" id="auditoriaInfo" style="margin-top: 25px; display: none;">
+                    <strong>📋 Información de Auditoría:</strong>
+                    <div>Fecha y hora: <span id="fechaRegistro"></span></div>
+                    <div>Realizado por: <span id="adminZona"></span></div>
+                    <div>Zona: <span id="auditoriaZona"></span></div>
+                    <div>Acción: <span id="tipoAccion"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS - ORDEN IMPORTANTE -->
+    <script src="js/admin.config.js"></script>
+    <script src="js/admin.ui.js"></script>
+    <script src="js/admin.zona.js"></script>
+    <script src="js/admin.auth.js"></script>
+    <script src="js/admin.empleados.js"></script>
+    <script src="js/admin.fichaje.js"></script>
+    
+    <!-- INICIALIZACIÓN -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            adminAuth.inicializar();
+        });
+    </script>
+</body>
+</html>
