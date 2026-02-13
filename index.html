@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Fichaje - Heladerías Daniel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            
+            --primary: #666666;      
+            --secondary: #FF66A8;   
+            --secondary-light: #FF99C2; 
+            --accent: #FF3366;      
+            --light: #FFFFFF;        
+            --light-gray: #F8F8F8;   
+            --medium-gray: #E0E0E0;  
+            --dark: #333333;        
+            --success: #4CAF50;      
+            --warning: #FF9800;      
+            --danger: #FF5252;       
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--light);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #808080 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .header .subtitle {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 0 25px 25px;
+        }
+        
+        .logo {
+            text-align: center;
+            padding: 25px 25px 0;
+            margin-bottom: 5px;
+        }
+        
+        .logo-icon {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 6px 20px rgba(255, 102, 168, 0.3);
+        }
+        
+        .logo-icon i {
+            font-size: 32px;
+            color: white;
+        }
+        
+        .logo h2 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        .screen {
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .screen-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 12px;
+        }
+        
+        .screen-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--secondary), var(--secondary-light));
+            border-radius: 2px;
+        }
+        
+        .locales-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .local-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 14px;
+            background: var(--light-gray);
+            color: var(--dark);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 3px 8px var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+        
+        .local-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .local-btn .icon {
+            background: rgba(102, 102, 102, 0.1);
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .local-btn .local-info {
+            text-align: left;
+        }
+        
+        .local-btn .local-name {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: var(--dark);
+        }
+        
+        .local-btn .local-type {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 400;
+        }
+        
+        .salida-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--medium-gray);
+            position: relative;
+        }
+        
+        .salida-section::before {
+            content: "SALIDA";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--light);
+            padding: 0 15px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .salida-btn {
+            border-left: 5px solid var(--accent);
+            background: linear-gradient(to right, rgba(255, 51, 102, 0.05), rgba(255, 51, 102, 0.02));
+        }
+        
+        .salida-btn .icon {
+            background: rgba(255, 51, 102, 0.15);
+            color: var(--accent);
+        }
+        
+        .salida-btn .local-name {
+            color: var(--accent);
+        }
+        
+        .salida-btn:hover {
+            background: linear-gradient(to right, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.05));
+        }
+        
+        .local-info-card {
+            background: linear-gradient(135deg, rgba(102, 102, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 1px solid var(--medium-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .local-info-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .local-info-card.salida {
+            background: linear-gradient(135deg, rgba(255, 51, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
+            border: 1px solid rgba(255, 51, 102, 0.15);
+        }
+        
+        .local-info-card.salida::before {
+            background: linear-gradient(to bottom, var(--accent), var(--secondary));
+        }
+        
+        .local-info-card h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .local-info-card .local-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .local-info-card.salida .local-name {
+            color: var(--accent);
+        }
+        
+        .local-info-card .fichaje-type {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        .local-info-card.salida .fichaje-type {
+            background: var(--accent);
+        }
+        
+        .input-group {
+            margin: 25px 0;
+        }
+        
+        .dni-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 15px;
+            text-align: center;
+        }
+        
+        .dni-input-container {
+            position: relative;
+        }
+        
+        .dni-input {
+            width: 100%;
+            padding: 18px 18px 18px 55px;
+            font-size: 17px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 14px;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 500;
+            background: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .dni-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(255, 102, 168, 0.2);
+            background: white;
+        }
+        
+        .dni-input-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+            font-size: 20px;
+        }
+        
+        .action-btn {
+            width: 100%;
+            padding: 17px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(to right, var(--primary), #808080);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(102, 102, 102, 0.25);
+        }
+        
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 102, 102, 0.35);
+            background: linear-gradient(to right, #555555, #707070);
+        }
+        
+        .action-btn:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+        
+        .action-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .action-btn i {
+            margin-right: 10px;
+            font-size: 17px;
+        }
+        
+        .back-btn {
+            background: linear-gradient(to right, #999999, #aaaaaa);
+            box-shadow: 0 4px 12px rgba(153, 153, 153, 0.25);
+            margin-top: 15px;
+        }
+        
+        .back-btn:hover:not(:disabled) {
+            background: linear-gradient(to right, #888888, #999999);
+            box-shadow: 0 8px 20px rgba(153, 153, 153, 0.35);
+        }
+        
+        .message {
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 14px;
+            text-align: center;
+            font-size: 15px;
+            display: none;
+            line-height: 1.5;
+            border-left: 5px solid transparent;
+        }
+        
+        .message.success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #1b5e20;
+            border-left-color: var(--success);
+            display: block;
+        }
+        
+        .message.error {
+            background: rgba(255, 82, 82, 0.1);
+            color: #b71c1c;
+            border-left-color: var(--danger);
+            display: block;
+        }
+        
+        .message.loading {
+            background: rgba(255, 152, 0, 0.1);
+            color: #e65100;
+            border-left-color: var(--warning);
+            display: block;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--medium-gray);
+            color: var(--primary);
+            font-size: 12px;
+            line-height: 1.5;
+            opacity: 0.7;
+        }
+        
+        .footer p:first-child {
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 20px;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .logo {
+                padding: 20px 20px 0;
+            }
+            
+            .content {
+                padding: 0 20px 20px;
+            }
+            
+            .local-btn {
+                padding: 16px;
+            }
+            
+            .dni-input {
+                padding: 16px 16px 16px 50px;
+                font-size: 16px;
+            }
+            
+            .action-btn {
+                padding: 16px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            body {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .logo h2 {
+                font-size: 22px;
+            }
+            
+            .local-btn .local-name {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HELADERÍAS DANIEL</h1>
+            <p class="subtitle">Sistema de Control de Asistencia</p>
+        </div>
+        
+        <div class="content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h2>FICHAJE DIGITAL</h2>
+                <p>Registro de entradas y salidas</p>
+            </div>
+            
+            
+            <div id="screen-home" class="screen active">
+                <h3 class="screen-title">Seleccioná tu local</h3>
+                
+                <div class="locales-grid">
+                    <button class="local-btn" onclick="selectLocal('lacroze')">
+                        <div class="icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="local-info">
+                            <div class="local-name">LACROZE</div>
+                            <div class="local-type">Registrar entrada</div>
+                        </div>
+                    </button>
+                    
+                    <button class="local-btn" onclick="selectLocal('palermo')">
+                        <div class="icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="local-info">
+                            <div class="local-name">PALERMO</div>
+                            <div class="local-type">Registrar entrada</div>
+                        </div>
+                    </button>
+                    
+                    <button class="local-btn" onclick="selectLocal('saavedra')">
+                        <div class="icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="local-info">
+                            <div class="local-name">SAAVEDRA</div>
+                            <div class="local-type">Registrar entrada</div>
+                        </div>
+                    </button>
+                </div>
+                
+                <div class="salida-section">
+                    <button class="local-btn salida-btn" onclick="selectSalida()">
+                        <div class="icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="local-info">
+                            <div class="local-name">REGISTRAR SALIDA</div>
+                            <div class="local-type">Desde cualquier lugar</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="screen-dni" class="screen">
+                <div class="local-info-card" id="local-info">
+                    <h3>Fichaje de <span id="fichaje-type">ENTRADA</span></h3>
+                    <div class="local-name" id="current-local">LACROZE</div>
+                    <div class="fichaje-type" id="type-badge">ENTRADA</div>
+                </div>
+                
+                <div class="input-group">
+                    <label class="dni-label" for="dni-input">Ingresá tu número de DNI</label>
+                    <div class="dni-input-container">
+                        <i class="fas fa-id-card"></i>
+                        <input type="number" 
+                               id="dni-input" 
+                               class="dni-input" 
+                               placeholder="Ej: 35286339"
+                               onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                    </div>
+                </div>
+                
+                <button class="action-btn" id="submit-btn" onclick="submitFichaje()">
+                    <i class="fas fa-check-circle"></i> CONFIRMAR FICHAJE
+                </button>
+                
+                <button class="action-btn back-btn" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> VOLVER ATRÁS
+                </button>
+            </div>
+            
+            <div id="message" class="message"></div>
+            
+            <div class="footer">
+                <p>Sistema v3.2 • Auditoría completa en registros</p>
+                <p>Todos los fichajes registran información detallada</p>
+            </div>
+        </div>
+    </div>
+
+  <script>
+  
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQVKHBWJRI42wGyPEL5sy5w6NcVKGCVHWT6HqPSTq_pK4RmPb_hPjXRqwEeFQSBr8I/exec";
+  const ACTIVATION_ENDPOINT = SCRIPT_URL;
+  
+  function generateDeviceId() {
+      let id = localStorage.getItem("deviceId");
+      if (!id) {
+          id = crypto.randomUUID();
+          localStorage.setItem("deviceId", id);
+      }
+      return id;
+  }
+  
+  async function checkDeviceRegistration() {
+      const deviceId = generateDeviceId();
+  
+      const res = await fetch(ACTIVATION_ENDPOINT + "?action=checkDevice&deviceId=" + deviceId);
+      const data = await res.json();
+  
+      if (!data.allowed) {
+          showActivationScreen();
+      }
+  }
+  
+  function showActivationScreen() {
+      document.body.innerHTML = `
+      <div style="max-width:400px;margin:60px auto;font-family:sans-serif;text-align:center">
+          <h2>🔐 Activar dispositivo</h2>
+          <p>Ingresá el código del local</p>
+          <input id="activationCode" style="padding:12px;width:100%;margin:15px 0">
+          <button onclick="activateDevice()" style="padding:12px;width:100%">Activar</button>
+          <div id="actMsg"></div>
+      </div>`;
+  }
+  
+  async function activateDevice() {
+      const code = document.getElementById("activationCode").value.trim();
+      const deviceId = generateDeviceId();
+  
+      const form = new FormData();
+      form.append("action", "activateDevice");
+      form.append("code", code);
+      form.append("deviceId", deviceId);
+  
+      const res = await fetch(ACTIVATION_ENDPOINT, { method:"POST", body:form });
+      const data = await res.json();
+  
+      if (data.success) {
+          location.reload();
+      } else {
+          document.getElementById("actMsg").innerText = "Código inválido";
+      }
+  }
+  
+  checkDeviceRegistration();
+  
+  function detectDeviceInfo() {
+      const userAgent = navigator.userAgent;
+      let deviceInfo = {
+          tipo: '',
+          marca: '',
+          navegador: '',
+          sistemaOperativo: '',
+          resolucion: `${screen.width}x${screen.height}`,
+          idioma: navigator.language,
+          zonaHoraria: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          cookies: navigator.cookieEnabled ? 'Sí' : 'No'
+      };
+  
+      if (/mobile/i.test(userAgent)) {
+          deviceInfo.tipo = 'Celular';
+      } else {
+          deviceInfo.tipo = 'Computadora';
+      }
+  
+      deviceInfo.navegador = /chrome/i.test(userAgent) ? 'Chrome' : 'Otro';
+      deviceInfo.sistemaOperativo = /windows/i.test(userAgent) ? 'Windows' : 'Otro';
+  
+      return deviceInfo;
+  }
+  
+  async function obtenerIP() {
+      try {
+          const r = await fetch('https://api.ipify.org?format=json');
+          return (await r.json()).ip;
+      } catch { return 'No detectada'; }
+  }
+  
+  let currentLocal = '';
+  let currentType = 'entrada';
+  
+  function selectLocal(local) {
+      currentLocal = local;
+      currentType = 'entrada';
+      showScreen('screen-dni');
+  }
+  
+  function selectSalida() {
+      currentLocal = 'general';
+      currentType = 'salida';
+      showScreen('screen-dni');
+  }
+  
+  function goBack() {
+      showScreen('screen-home');
+  }
+  
+  function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+  }
+  
+  async function submitFichaje() {
+      const dni = document.getElementById('dni-input').value.trim();
+      if (!dni) return;
+  
+      const deviceInfo = detectDeviceInfo();
+      const userIP = await obtenerIP();
+      const deviceId = generateDeviceId();
+  
+      const formData = new FormData();
+      formData.append('dni', dni);
+      formData.append('tipo', currentType);
+      formData.append('local', currentLocal);
+      formData.append('deviceId', deviceId);
+      formData.append('ip_publica', userIP);
+  
+      fetch(SCRIPT_URL, { method:'POST', body:formData })
+      .then(r=>r.json())
+      .then(d=>alert(d.message || d.error));
+  }
+  
+  </script>
+
+</body>
+</html>
