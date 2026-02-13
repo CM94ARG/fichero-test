@@ -21,11 +21,7 @@
             --shadow: rgba(0, 0, 0, 0.1);
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -52,25 +48,12 @@
             color: white;
             padding: 30px 25px;
             text-align: center;
-            position: relative;
         }
         
-        .header h1 {
-            font-size: 26px;
-            margin-bottom: 8px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+        .header h1 { font-size: 26px; margin-bottom: 8px; font-weight: 700; }
+        .header .subtitle { font-size: 15px; opacity: 0.9; font-weight: 300; }
         
-        .header .subtitle {
-            font-size: 15px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-        
-        .content {
-            padding: 0 25px 25px;
-        }
+        .content { padding: 0 25px 25px; }
         
         .logo {
             text-align: center;
@@ -80,43 +63,18 @@
         
         .logo-icon {
             background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 70px; height: 70px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
             margin: 0 auto 15px;
             box-shadow: 0 6px 20px rgba(255, 102, 168, 0.3);
         }
         
-        .logo-icon i {
-            font-size: 32px;
-            color: white;
-        }
+        .logo-icon i { font-size: 32px; color: white; }
+        .logo h2 { color: var(--primary); font-size: 24px; margin-bottom: 5px; font-weight: 700; }
+        .logo p { color: var(--primary); font-size: 14px; opacity: 0.8; }
         
-        .logo h2 {
-            color: var(--primary);
-            font-size: 24px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-        
-        .logo p {
-            color: var(--primary);
-            font-size: 14px;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-        
-        .screen {
-            display: none;
-        }
-        
-        .screen.active {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-        }
+        .screen { display: none; }
+        .screen.active { display: block; animation: fadeIn 0.4s ease-out; }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -145,319 +103,106 @@
             border-radius: 2px;
         }
         
-        .device-register-box {
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.05) 0%, rgba(255, 193, 7, 0.03) 100%);
-            border-radius: 16px;
-            padding: 25px;
-            margin: 20px 0 30px;
-            border: 1px solid rgba(255, 152, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-            border-left: 5px solid var(--warning);
-        }
-        
-        .device-register-box::before {
-            content: "🔐";
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 40px;
-            opacity: 0.1;
-        }
-        
-        .device-register-box h3 {
-            color: #856404;
-            margin-bottom: 15px;
-            font-size: 20px;
-            font-weight: 700;
-        }
-        
-        .device-register-box p {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-        
-        .device-id {
-            font-family: monospace;
-            background: var(--light);
-            padding: 15px;
-            border-radius: 12px;
-            font-size: 13px;
-            word-break: break-all;
-            margin: 15px 0;
-            border: 2px dashed var(--warning);
-            color: var(--dark);
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .clave-input-container {
-            position: relative;
+        /* 🟢 ESTILOS PARA ZONAS/FRANQUICIAS */
+        .zonas-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
             margin: 20px 0;
         }
         
-        .clave-input {
-            width: 100%;
-            padding: 18px 18px 18px 55px;
-            font-size: 17px;
-            border: 2px solid var(--medium-gray);
-            border-radius: 14px;
-            transition: all 0.3s;
+        .zona-card {
             background: var(--light-gray);
-            color: var(--dark);
-        }
-        
-        .clave-input:focus {
-            outline: none;
-            border-color: var(--warning);
-            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
-            background: white;
-        }
-        
-        .clave-input-container i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--warning);
-            font-size: 20px;
-        }
-        
-        .register-btn {
-            width: 100%;
-            padding: 17px;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(to right, var(--warning), #FFB74D);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.25);
-        }
-        
-        .register-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.35);
-            background: linear-gradient(to right, #F57C00, #FB8C00);
-        }
-        
-        .register-btn i {
-            margin-right: 10px;
-            font-size: 17px;
-        }
-        
-        .locales-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-        
-        .local-btn {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 14px;
-            background: var(--light-gray);
-            color: var(--dark);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 3px 8px var(--shadow);
+            border: 2px solid transparent;
             border-left: 5px solid var(--primary);
+            box-shadow: 0 3px 8px var(--shadow);
         }
         
-        .local-btn:hover:not(:disabled) {
-            background: white;
+        .zona-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            background: white;
+            border-color: var(--secondary-light);
         }
         
-        .local-btn .icon {
-            background: rgba(102, 102, 102, 0.1);
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
+        .zona-card i {
+            font-size: 40px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .zona-card h3 {
             font-size: 20px;
-            color: var(--primary);
-            flex-shrink: 0;
-        }
-        
-        .local-btn .local-info {
-            text-align: left;
-        }
-        
-        .local-btn .local-name {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 3px;
             color: var(--dark);
-        }
-        
-        .local-btn .local-type {
-            font-size: 12px;
-            color: var(--primary);
-            font-weight: 400;
-        }
-        
-        .salida-section {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid var(--medium-gray);
-            position: relative;
-        }
-        
-        .salida-section::before {
-            content: "SALIDA";
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--light);
-            padding: 0 15px;
-            color: var(--accent);
-            font-size: 13px;
+            margin-bottom: 8px;
             font-weight: 700;
-            letter-spacing: 1px;
         }
         
-        .salida-btn {
-            border-left: 5px solid var(--accent);
-            background: linear-gradient(to right, rgba(255, 51, 102, 0.05), rgba(255, 51, 102, 0.02));
+        .zona-card p {
+            color: var(--primary);
+            font-size: 14px;
         }
         
-        .salida-btn .icon {
-            background: rgba(255, 51, 102, 0.15);
-            color: var(--accent);
-        }
-        
-        .salida-btn .local-name {
-            color: var(--accent);
-        }
-        
-        .salida-btn:hover:not(:disabled) {
-            background: linear-gradient(to right, rgba(255, 51, 102, 0.1), rgba(255, 51, 102, 0.05));
-        }
-        
-        .local-info-card {
+        /* 🟢 PANTALLA DE LOGIN POR ZONA */
+        .login-box {
             background: linear-gradient(135deg, rgba(102, 102, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
-            padding: 20px;
-            border-radius: 14px;
+            border-radius: 16px;
+            padding: 30px 25px;
+            margin: 20px 0;
+            border-left: 5px solid var(--secondary);
             text-align: center;
-            margin-bottom: 25px;
-            border: 1px solid var(--medium-gray);
-            position: relative;
-            overflow: hidden;
         }
         
-        .local-info-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        .login-box i {
+            font-size: 50px;
+            color: var(--secondary);
+            margin-bottom: 15px;
         }
         
-        .local-info-card.salida {
-            background: linear-gradient(135deg, rgba(255, 51, 102, 0.05) 0%, rgba(255, 102, 168, 0.03) 100%);
-            border: 1px solid rgba(255, 51, 102, 0.15);
-        }
-        
-        .local-info-card.salida::before {
-            background: linear-gradient(to bottom, var(--accent), var(--secondary));
-        }
-        
-        .local-info-card h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
+        .login-box h2 {
             color: var(--dark);
-        }
-        
-        .local-info-card .local-name {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-        
-        .local-info-card.salida .local-name {
-            color: var(--accent);
-        }
-        
-        .local-info-card .fichaje-type {
-            display: inline-block;
-            padding: 5px 15px;
-            background: var(--primary);
-            color: white;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 5px;
-            letter-spacing: 0.5px;
-        }
-        
-        .local-info-card.salida .fichaje-type {
-            background: var(--accent);
-        }
-        
-        .input-group {
-            margin: 25px 0;
-        }
-        
-        .dni-label {
-            display: block;
             margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 15px;
-            text-align: center;
+            font-size: 22px;
         }
         
-        .dni-input-container {
-            position: relative;
+        .login-box p {
+            color: #666;
+            margin-bottom: 25px;
         }
         
-        .dni-input {
+        .franquicia-nombre {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+        
+        /* 🟢 MISMOS ESTILOS DE BOTONES Y FORMULARIOS */
+        .clave-input-container, .dni-input-container { position: relative; margin: 20px 0; }
+        
+        .clave-input, .dni-input {
             width: 100%;
             padding: 18px 18px 18px 55px;
             font-size: 17px;
             border: 2px solid var(--medium-gray);
             border-radius: 14px;
-            text-align: center;
             transition: all 0.3s;
-            font-weight: 500;
             background: var(--light-gray);
-            color: var(--dark);
         }
         
-        .dni-input:focus {
+        .clave-input:focus, .dni-input:focus {
             outline: none;
             border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(255, 102, 168, 0.2);
+            box-shadow: 0 0 0 3px rgba(255,102,168,0.2);
             background: white;
         }
         
-        .dni-input-container i {
+        .clave-input-container i, .dni-input-container i {
             position: absolute;
             left: 20px;
             top: 50%;
@@ -481,41 +226,88 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(102, 102, 102, 0.25);
+            box-shadow: 0 4px 12px rgba(102,102,102,0.25);
         }
         
         .action-btn:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(102, 102, 102, 0.35);
+            box-shadow: 0 8px 20px rgba(102,102,102,0.35);
             background: linear-gradient(to right, #555555, #707070);
-        }
-        
-        .action-btn:active:not(:disabled) {
-            transform: translateY(-1px);
-        }
-        
-        .action-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .action-btn i {
-            margin-right: 10px;
-            font-size: 17px;
         }
         
         .back-btn {
             background: linear-gradient(to right, #999999, #aaaaaa);
-            box-shadow: 0 4px 12px rgba(153, 153, 153, 0.25);
             margin-top: 15px;
         }
         
-        .back-btn:hover:not(:disabled) {
-            background: linear-gradient(to right, #888888, #999999);
-            box-shadow: 0 8px 20px rgba(153, 153, 153, 0.35);
+        .locales-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
         }
+        
+        .local-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 14px;
+            background: var(--light-gray);
+            color: var(--dark);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: 0 3px 8px var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+        
+        .local-btn:hover:not(:disabled) {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+        
+        .local-btn .icon {
+            background: rgba(102,102,102,0.1);
+            width: 45px; height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary);
+        }
+        
+        .salida-btn {
+            border-left: 5px solid var(--accent);
+            background: linear-gradient(to right, rgba(255,51,102,0.05), rgba(255,51,102,0.02));
+        }
+        
+        .salida-btn .icon {
+            background: rgba(255,51,102,0.15);
+            color: var(--accent);
+        }
+        
+        .salida-btn .local-name { color: var(--accent); }
+        
+        .local-info-card {
+            background: linear-gradient(135deg, rgba(102,102,102,0.05) 0%, rgba(255,102,168,0.03) 100%);
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 1px solid var(--medium-gray);
+            border-left: 5px solid var(--primary);
+        }
+        
+        .local-info-card.salida { border-left-color: var(--accent); }
+        .local-info-card .local-name { font-size: 22px; font-weight: 700; color: var(--primary); }
+        .local-info-card.salida .local-name { color: var(--accent); }
         
         .message {
             padding: 18px;
@@ -524,37 +316,13 @@
             text-align: center;
             font-size: 15px;
             display: none;
-            line-height: 1.5;
             border-left: 5px solid transparent;
         }
         
-        .message.success {
-            background: rgba(76, 175, 80, 0.1);
-            color: #1b5e20;
-            border-left-color: var(--success);
-            display: block;
-        }
-        
-        .message.error {
-            background: rgba(255, 82, 82, 0.1);
-            color: #b71c1c;
-            border-left-color: var(--danger);
-            display: block;
-        }
-        
-        .message.warning {
-            background: rgba(255, 152, 0, 0.1);
-            color: #856404;
-            border-left-color: var(--warning);
-            display: block;
-        }
-        
-        .message.loading {
-            background: rgba(255, 152, 0, 0.1);
-            color: #e65100;
-            border-left-color: var(--warning);
-            display: block;
-        }
+        .message.success { background: rgba(76,175,80,0.1); color: #1b5e20; border-left-color: var(--success); display: block; }
+        .message.error { background: rgba(255,82,82,0.1); color: #b71c1c; border-left-color: var(--danger); display: block; }
+        .message.warning { background: rgba(255,152,0,0.1); color: #856404; border-left-color: var(--warning); display: block; }
+        .message.loading { background: rgba(255,152,0,0.1); color: #e65100; border-left-color: var(--warning); display: block; }
         
         .device-info-footer {
             text-align: center;
@@ -563,9 +331,7 @@
             border-top: 1px solid var(--medium-gray);
             color: var(--primary);
             font-size: 11px;
-            line-height: 1.5;
             opacity: 0.7;
-            word-break: break-all;
         }
         
         .footer {
@@ -575,67 +341,13 @@
             border-top: 1px solid var(--medium-gray);
             color: var(--primary);
             font-size: 12px;
-            line-height: 1.5;
             opacity: 0.7;
         }
         
-        .footer p:first-child {
-            margin-bottom: 5px;
-        }
-        
         @media (max-width: 600px) {
-            .container {
-                border-radius: 20px;
-            }
-            
-            .header {
-                padding: 25px 20px;
-            }
-            
-            .header h1 {
-                font-size: 22px;
-            }
-            
-            .logo {
-                padding: 20px 20px 0;
-            }
-            
-            .content {
-                padding: 0 20px 20px;
-            }
-            
-            .local-btn {
-                padding: 16px;
-            }
-            
-            .dni-input,
-            .clave-input {
-                padding: 16px 16px 16px 50px;
-                font-size: 16px;
-            }
-            
-            .action-btn,
-            .register-btn {
-                padding: 16px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            body {
-                padding: 15px;
-            }
-            
-            .header h1 {
-                font-size: 20px;
-            }
-            
-            .logo h2 {
-                font-size: 22px;
-            }
-            
-            .local-btn .local-name {
-                font-size: 16px;
-            }
+            .header h1 { font-size: 22px; }
+            .content { padding: 0 20px 20px; }
+            .local-btn { padding: 16px; }
         }
     </style>
 </head>
@@ -652,18 +364,58 @@
                     <i class="fas fa-clock"></i>
                 </div>
                 <h2>FICHAJE DIGITAL</h2>
-                <p>Registro de entradas y salidas</p>
+                <p>Seleccioná tu zona</p>
             </div>
             
-            <!-- Pantalla de registro de dispositivo -->
+            <!-- ======================================== -->
+            <!-- PANTALLA 1: SELECCIÓN DE ZONA/FRANQUICIA -->
+            <!-- ======================================== -->
+            <div id="screen-zonas" class="screen active">
+                <h3 class="screen-title">Elegí tu zona</h3>
+                <div class="zonas-grid" id="zonas-container">
+                    <!-- Se cargan dinámicamente -->
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 30px; color: var(--secondary);"></i>
+                        <p style="margin-top: 15px;">Cargando zonas...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ======================================== -->
+            <!-- PANTALLA 2: LOGIN DE FRANQUICIA         -->
+            <!-- ======================================== -->
+            <div id="screen-login" class="screen">
+                <div class="login-box">
+                    <i class="fas fa-store"></i>
+                    <h2 id="zona-nombre">Zona Norte</h2>
+                    <p>Ingresá la clave de acceso para esta zona</p>
+                    <div class="clave-input-container">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" 
+                               id="clave-franquicia" 
+                               class="clave-input" 
+                               placeholder="Clave de la zona">
+                    </div>
+                    <button class="action-btn" onclick="loginFranquicia()" id="btn-login">
+                        <i class="fas fa-sign-in-alt"></i> ACCEDER
+                    </button>
+                    <button class="action-btn back-btn" onclick="volverAZonas()">
+                        <i class="fas fa-arrow-left"></i> CAMBIAR ZONA
+                    </button>
+                </div>
+            </div>
+            
+            <!-- ======================================== -->
+            <!-- PANTALLA 3: REGISTRO DE DISPOSITIVO     -->
+            <!-- ======================================== -->
             <div id="screen-device-register" class="screen">
-                <div class="device-register-box">
-                    <h3>🔐 Registro de Dispositivo</h3>
-                    <p>
+                <div class="device-register-box" style="background: linear-gradient(135deg, rgba(255,152,0,0.05) 0%, rgba(255,193,7,0.03) 100%); border-left: 5px solid var(--warning); padding: 25px; border-radius: 16px; margin: 20px 0;">
+                    <h3 style="color: #856404; margin-bottom: 15px;">🔐 Registro de Dispositivo</h3>
+                    <p style="color: #666; margin-bottom: 20px;">
                         Es la primera vez que usás este dispositivo.<br>
-                        Ingresá la clave de registro para autorizarlo.
+                        Ingresá la clave de registro general.
                     </p>
-                    <div class="device-id" id="deviceIdDisplay">
+                    <div class="device-id" style="font-family: monospace; background: white; padding: 15px; border-radius: 12px; border: 2px dashed var(--warning); text-align: center; margin: 15px 0;" id="deviceIdDisplay">
                         Generando identificador...
                     </div>
                     <div class="clave-input-container">
@@ -673,52 +425,32 @@
                                class="clave-input" 
                                placeholder="Clave de registro">
                     </div>
-                    <button class="register-btn" onclick="registrarDispositivo()" id="btnRegistrar">
+                    <button class="register-btn" onclick="registrarDispositivo()" id="btnRegistrar" style="width: 100%; padding: 17px; background: linear-gradient(to right, var(--warning), #FFB74D); border: none; border-radius: 14px; color: white; font-weight: 600;">
                         <i class="fas fa-check-circle"></i> REGISTRAR DISPOSITIVO
                     </button>
-                    <button class="action-btn back-btn" onclick="recargarPagina()">
+                    <button class="action-btn back-btn" onclick="recargarPagina()" style="margin-top: 15px;">
                         <i class="fas fa-redo-alt"></i> REINTENTAR
                     </button>
                 </div>
             </div>
             
-            <!-- Pantalla principal -->
+            <!-- ======================================== -->
+            <!-- PANTALLA 4: MENÚ PRINCIPAL (LOCALES)    -->
+            <!-- ======================================== -->
             <div id="screen-home" class="screen">
-                <h3 class="screen-title">Seleccioná tu local</h3>
-                
-                <div class="locales-grid">
-                    <button class="local-btn" onclick="selectLocal('lacroze')" id="btn-lacroze">
-                        <div class="icon">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <div class="local-info">
-                            <div class="local-name">LACROZE</div>
-                            <div class="local-type">Registrar entrada</div>
-                        </div>
-                    </button>
-                    
-                    <button class="local-btn" onclick="selectLocal('palermo')" id="btn-palermo">
-                        <div class="icon">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <div class="local-info">
-                            <div class="local-name">PALERMO</div>
-                            <div class="local-type">Registrar entrada</div>
-                        </div>
-                    </button>
-                    
-                    <button class="local-btn" onclick="selectLocal('saavedra')" id="btn-saavedra">
-                        <div class="icon">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <div class="local-info">
-                            <div class="local-name">SAAVEDRA</div>
-                            <div class="local-type">Registrar entrada</div>
-                        </div>
-                    </button>
+                <div style="background: rgba(102,102,102,0.05); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; border-left: 5px solid var(--secondary);">
+                    <span style="font-weight: 700; color: var(--secondary);" id="zona-actual-label">Zona Norte</span>
+                    <span style="margin-left: 10px; font-size: 12px; color: #666;">(podés cambiar de zona al salir)</span>
                 </div>
                 
-                <div class="salida-section">
+                <h3 class="screen-title">Seleccioná tu local</h3>
+                
+                <div class="locales-grid" id="locales-container">
+                    <!-- Se cargan dinámicamente según la zona -->
+                </div>
+                
+                <div class="salida-section" style="margin-top: 30px; padding-top: 25px; border-top: 1px solid var(--medium-gray); position: relative;">
+                    <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: white; padding: 0 15px; color: var(--accent); font-size: 13px; font-weight: 700;">SALIDA</div>
                     <button class="local-btn salida-btn" onclick="selectSalida()" id="btn-salida">
                         <div class="icon">
                             <i class="fas fa-sign-out-alt"></i>
@@ -729,18 +461,24 @@
                         </div>
                     </button>
                 </div>
+                
+                <button class="action-btn back-btn" onclick="cerrarSesion()" style="margin-top: 25px;">
+                    <i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN Y CAMBIAR ZONA
+                </button>
             </div>
             
-            <!-- Pantalla de ingreso de DNI -->
+            <!-- ======================================== -->
+            <!-- PANTALLA 5: INGRESO DE DNI              -->
+            <!-- ======================================== -->
             <div id="screen-dni" class="screen">
                 <div class="local-info-card" id="local-info">
                     <h3>Fichaje de <span id="fichaje-type">ENTRADA</span></h3>
                     <div class="local-name" id="current-local">LACROZE</div>
-                    <div class="fichaje-type" id="type-badge">ENTRADA</div>
+                    <div class="fichaje-type" id="type-badge" style="display: inline-block; padding: 5px 15px; background: var(--primary); color: white; border-radius: 20px; font-size: 13px; margin-top: 5px;">ENTRADA</div>
                 </div>
                 
                 <div class="input-group">
-                    <label class="dni-label" for="dni-input">Ingresá tu número de DNI</label>
+                    <label class="dni-label" for="dni-input" style="display: block; margin-bottom: 10px; font-weight: 600; color: var(--dark); text-align: center;">Ingresá tu número de DNI</label>
                     <div class="dni-input-container">
                         <i class="fas fa-id-card"></i>
                         <input type="number" 
@@ -762,7 +500,6 @@
             
             <div id="message" class="message"></div>
             
-            <!-- Footer con información del dispositivo -->
             <div id="device-info-footer" class="device-info-footer">
                 <div style="margin-bottom: 5px;">
                     <i class="fas fa-microchip"></i> Dispositivo: <span id="device-id-short">Verificando...</span>
@@ -771,8 +508,8 @@
             </div>
             
             <div class="footer">
-                <p>Sistema v5.0 • Seguridad por dispositivo</p>
-                <p>🔐 Registrá tu dispositivo la primera vez</p>
+                <p>Sistema Multi-Franquicia v1.0</p>
+                <p>🔐 Cada zona tiene su propia clave de acceso</p>
             </div>
         </div>
     </div>
@@ -782,7 +519,7 @@
         // CONFIGURACIÓN
         // ============================================
         
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyO0ZJeyK1eUBI-9D8xTQyxge2sy_dV8iIXWEW5wDoKm5LWeASt0bfXKCgkj8joZ4PD/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQVKHBWJRI42wGyPEL5sy5w6NcVKGCVHWT6HqPSTq_pK4RmPb_hPjXRqwEeFQSBr8I/exec";
         
         // ============================================
         // ESTADO DE LA APLICACIÓN
@@ -790,6 +527,7 @@
         
         let deviceId = null;
         let dispositivoAutorizado = false;
+        let franquiciaActual = null;
         let currentLocal = '';
         let currentType = 'entrada';
         
@@ -812,10 +550,8 @@
                 const memory = navigator.deviceMemory || 'unknown';
                 const userAgent = navigator.userAgent;
                 
-                const fingerprint = [
-                    screen, timezone, language, platform, hardware, memory,
-                    new Date().getTimezoneOffset(), userAgent
-                ].join('|');
+                const fingerprint = [screen, timezone, language, platform, hardware, memory,
+                    new Date().getTimezoneOffset(), userAgent].join('|');
                 
                 let hash = 0;
                 for (let i = 0; i < fingerprint.length; i++) {
@@ -829,7 +565,6 @@
                 return newDeviceId;
                 
             } catch (error) {
-                console.error('Error:', error);
                 return `DANIEL_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
             }
         }
@@ -840,12 +575,7 @@
         
         function detectDeviceInfo() {
             const userAgent = navigator.userAgent;
-            let deviceInfo = {
-                tipo: '',
-                marca: '',
-                navegador: '',
-                sistemaOperativo: ''
-            };
+            let deviceInfo = { tipo: '', marca: '', navegador: '', sistemaOperativo: '' };
             
             if (/mobile/i.test(userAgent)) {
                 deviceInfo.tipo = 'Celular';
@@ -869,17 +599,11 @@
             else if (/edg/i.test(userAgent)) deviceInfo.navegador = 'Edge';
             else deviceInfo.navegador = 'Otro';
             
-            if (/windows/i.test(userAgent)) {
-                deviceInfo.sistemaOperativo = /windows nt 10/i.test(userAgent) ? 'Windows 10/11' : 'Windows';
-            } else if (/macintosh|mac os x/i.test(userAgent)) {
-                deviceInfo.sistemaOperativo = 'macOS';
-            } else if (/android/i.test(userAgent)) {
-                deviceInfo.sistemaOperativo = 'Android';
-            } else if (/ios|iphone os/i.test(userAgent)) {
-                deviceInfo.sistemaOperativo = 'iOS';
-            } else {
-                deviceInfo.sistemaOperativo = 'Otro';
-            }
+            if (/windows/i.test(userAgent)) deviceInfo.sistemaOperativo = 'Windows';
+            else if (/macintosh|mac os x/i.test(userAgent)) deviceInfo.sistemaOperativo = 'macOS';
+            else if (/android/i.test(userAgent)) deviceInfo.sistemaOperativo = 'Android';
+            else if (/ios|iphone os/i.test(userAgent)) deviceInfo.sistemaOperativo = 'iOS';
+            else deviceInfo.sistemaOperativo = 'Otro';
             
             return deviceInfo;
         }
@@ -894,45 +618,174 @@
                 const data = await response.json();
                 return data.ip;
             } catch (error) {
-                console.error('Error obteniendo IP:', error);
                 return 'No detectada';
             }
         }
         
         // ============================================
-        // VALIDAR DISPOSITIVO
+        // CARGAR ZONAS/FRANQUICIAS
         // ============================================
         
-        async function validarDispositivo() {
+        async function cargarZonas() {
             try {
-                mostrarLoading('btnRegistrar', 'Verificando dispositivo...');
+                const formData = new FormData();
+                formData.append('action', 'getFranquicias');
                 
-                deviceId = generarDeviceId();
-                actualizarInfoDispositivo();
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
                 
-                const registrado = localStorage.getItem('heladerias_device_registered');
-                if (registrado === 'true') {
-                    dispositivoAutorizado = true;
-                    ocultarPantallaRegistro();
-                    return true;
+                const data = await response.json();
+                
+                if (data.success && data.franquicias) {
+                    mostrarZonas(data.franquicias);
+                } else {
+                    mostrarZonasFallback();
                 }
+            } catch (error) {
+                console.error('Error cargando zonas:', error);
+                mostrarZonasFallback();
+            }
+        }
+        
+        function mostrarZonas(franquicias) {
+            const container = document.getElementById('zonas-container');
+            
+            let html = '';
+            franquicias.forEach(zona => {
+                html += `
+                    <div class="zona-card" onclick="seleccionarZona('${zona.id}', '${zona.nombre}')">
+                        <i class="fas fa-store"></i>
+                        <h3>${zona.nombre}</h3>
+                        <p>Hacé clic para acceder</p>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function mostrarZonasFallback() {
+            const container = document.getElementById('zonas-container');
+            container.innerHTML = `
+                <div class="zona-card" onclick="seleccionarZona('zona1', 'Zona Norte')">
+                    <i class="fas fa-store"></i>
+                    <h3>Zona Norte</h3>
+                    <p>Saavedra • Palermo • Colegiales</p>
+                </div>
+                <div class="zona-card" onclick="seleccionarZona('zona2', 'Zona Sur')">
+                    <i class="fas fa-store"></i>
+                    <h3>Zona Sur</h3>
+                    <p>Local A • Local B • Local C • Local D • Local E</p>
+                </div>
+                <div class="zona-card" onclick="seleccionarZona('zona3', 'Zona Oeste')">
+                    <i class="fas fa-store"></i>
+                    <h3>Zona Oeste</h3>
+                    <p>Devoto • Villa Devoto</p>
+                </div>
+            `;
+        }
+        
+        // ============================================
+        // SELECCIONAR ZONA Y MOSTRAR LOGIN
+        // ============================================
+        
+        function seleccionarZona(zonaId, zonaNombre) {
+            sessionStorage.setItem('zona_seleccionada_id', zonaId);
+            sessionStorage.setItem('zona_seleccionada_nombre', zonaNombre);
+            
+            document.getElementById('zona-nombre').textContent = zonaNombre;
+            document.getElementById('clave-franquicia').value = '';
+            showScreen('screen-login');
+        }
+        
+        // ============================================
+        // LOGIN DE FRANQUICIA
+        // ============================================
+        
+        async function loginFranquicia() {
+            const clave = document.getElementById('clave-franquicia').value;
+            const zonaId = sessionStorage.getItem('zona_seleccionada_id');
+            const zonaNombre = sessionStorage.getItem('zona_seleccionada_nombre');
+            
+            if (!clave) {
+                showMessage('❌ Ingresá la clave de la zona', 'warning');
+                return;
+            }
+            
+            if (!zonaId) {
+                showMessage('❌ Error: seleccioná una zona primero', 'error');
+                volverAZonas();
+                return;
+            }
+            
+            try {
+                mostrarLoading('btn-login', 'Verificando...');
                 
-                dispositivoAutorizado = false;
-                mostrarPantallaRegistro();
-                return false;
+                const formData = new FormData();
+                formData.append('action', 'loginFranquicia');
+                formData.append('zona', zonaId);
+                formData.append('clave_acceso', clave);
+                
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    franquiciaActual = {
+                        id: zonaId,
+                        nombre: zonaNombre,
+                        locales: data.franquicia.locales
+                    };
+                    
+                    sessionStorage.setItem('franquicia_activa', JSON.stringify(franquiciaActual));
+                    
+                    showMessage('✅ Acceso concedido', 'success');
+                    
+                    await verificarDispositivo();
+                    
+                } else {
+                    showMessage(data.error || '❌ Clave incorrecta', 'error');
+                }
                 
             } catch (error) {
                 console.error('Error:', error);
-                dispositivoAutorizado = false;
-                mostrarPantallaRegistro();
-                return false;
+                showMessage('❌ Error de conexión', 'error');
             } finally {
-                ocultarLoading('btnRegistrar', 'REGISTRAR DISPOSITIVO');
+                ocultarLoading('btn-login', 'ACCEDER');
             }
         }
         
         // ============================================
-        // 🟢 REGISTRAR DISPOSITIVO - CON FORMDATA (COMO ANTES)
+        // VERIFICAR DISPOSITIVO
+        // ============================================
+        
+        async function verificarDispositivo() {
+            deviceId = generarDeviceId();
+            actualizarInfoDispositivo();
+            
+            const registrado = localStorage.getItem('heladerias_device_registered');
+            
+            if (registrado === 'true') {
+                dispositivoAutorizado = true;
+                cargarPantallaPrincipal();
+            } else {
+                document.getElementById('screen-login').classList.remove('active');
+                document.getElementById('screen-device-register').classList.add('active');
+                
+                const deviceIdDisplay = document.getElementById('deviceIdDisplay');
+                if (deviceIdDisplay) {
+                    deviceIdDisplay.textContent = deviceId;
+                }
+            }
+        }
+        
+        // ============================================
+        // REGISTRAR DISPOSITIVO
         // ============================================
         
         async function registrarDispositivo() {
@@ -949,7 +802,6 @@
                 const ip = await obtenerIP();
                 const deviceInfo = detectDeviceInfo();
                 
-                // ✅ VOLVEMOS A FORMDATA - FUNCIONA CON APPS SCRIPT
                 const formData = new FormData();
                 formData.append('action', 'registrarDispositivo');
                 formData.append('device_id', deviceId);
@@ -962,10 +814,10 @@
                 
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: formData  // 👈 SIN mode, SIN headers
+                    body: formData
                 });
                 
-                const data = await response.json(); // ✅ PODEMOS LEER LA RESPUESTA
+                const data = await response.json();
                 
                 if (data.success) {
                     dispositivoAutorizado = true;
@@ -973,36 +825,143 @@
                     showMessage('✅ Dispositivo registrado correctamente', 'success');
                     
                     setTimeout(() => {
-                        ocultarPantallaRegistro();
-                        hideMessage();
-                    }, 2000);
+                        cargarPantallaPrincipal();
+                    }, 1500);
                 } else {
                     showMessage(data.error || '❌ Error al registrar dispositivo', 'error');
                 }
                 
             } catch (error) {
                 console.error('Error:', error);
-                showMessage('❌ Error de conexión. Verificá tu internet.', 'error');
+                showMessage('❌ Error de conexión', 'error');
             } finally {
                 ocultarLoading('btnRegistrar', 'REGISTRAR DISPOSITIVO');
             }
         }
         
         // ============================================
-        // 🟢 FICHAJE - CON FORMDATA (COMO ANTES)
+        // CARGAR PANTALLA PRINCIPAL
         // ============================================
+        
+        function cargarPantallaPrincipal() {
+            const franquiciaGuardada = sessionStorage.getItem('franquicia_activa');
+            if (franquiciaGuardada) {
+                franquiciaActual = JSON.parse(franquiciaGuardada);
+            }
+            
+            if (!franquiciaActual || !franquiciaActual.locales) {
+                showMessage('❌ Error: no hay información de la zona', 'error');
+                volverAZonas();
+                return;
+            }
+            
+            document.getElementById('zona-actual-label').textContent = franquiciaActual.nombre;
+            
+            const localesContainer = document.getElementById('locales-container');
+            let localesHtml = '';
+            
+            for (const [id, nombre] of Object.entries(franquiciaActual.locales)) {
+                localesHtml += `
+                    <button class="local-btn" onclick="selectLocal('${id}')">
+                        <div class="icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="local-info">
+                            <div class="local-name">${nombre}</div>
+                            <div class="local-type">Registrar entrada</div>
+                        </div>
+                    </button>
+                `;
+            }
+            
+            localesContainer.innerHTML = localesHtml;
+            
+            showScreen('screen-home');
+            hideMessage();
+        }
+        
+        // ============================================
+        // CERRAR SESIÓN
+        // ============================================
+        
+        function cerrarSesion() {
+            franquiciaActual = null;
+            sessionStorage.removeItem('franquicia_activa');
+            sessionStorage.removeItem('zona_seleccionada_id');
+            sessionStorage.removeItem('zona_seleccionada_nombre');
+            showScreen('screen-zonas');
+            hideMessage();
+        }
+        
+        // ============================================
+        // FUNCIONES DE FICHAJE
+        // ============================================
+        
+        function selectLocal(local) {
+            if (!dispositivoAutorizado) {
+                showMessage('🔐 Dispositivo no autorizado', 'warning');
+                return;
+            }
+            
+            currentLocal = local;
+            currentType = 'entrada';
+            
+            const localNombre = franquiciaActual.locales[local] || local.toUpperCase();
+            
+            const localInfoCard = document.getElementById('local-info');
+            localInfoCard.className = 'local-info-card';
+            localInfoCard.innerHTML = `
+                <h3>Fichaje de <span id="fichaje-type">ENTRADA</span></h3>
+                <div class="local-name" id="current-local">${localNombre}</div>
+                <div class="fichaje-type" id="type-badge">ENTRADA</div>
+            `;
+            
+            showScreen('screen-dni');
+            document.getElementById('dni-input').value = '';
+            document.getElementById('dni-input').focus();
+            hideMessage();
+        }
+        
+        function selectSalida() {
+            if (!dispositivoAutorizado) {
+                showMessage('🔐 Dispositivo no autorizado', 'warning');
+                return;
+            }
+            
+            currentLocal = 'general';
+            currentType = 'salida';
+            
+            const localInfoCard = document.getElementById('local-info');
+            localInfoCard.className = 'local-info-card salida';
+            localInfoCard.innerHTML = `
+                <h3>Fichaje de <span id="fichaje-type">SALIDA</span></h3>
+                <div class="local-name" id="current-local">DESDE CUALQUIER LUGAR</div>
+                <div class="fichaje-type" id="type-badge">SALIDA</div>
+            `;
+            
+            showScreen('screen-dni');
+            document.getElementById('dni-input').value = '';
+            document.getElementById('dni-input').focus();
+            hideMessage();
+        }
         
         async function submitFichaje() {
             if (!dispositivoAutorizado) {
-                showMessage('🔐 Dispositivo no autorizado. Registralo primero.', 'warning');
+                showMessage('🔐 Dispositivo no autorizado', 'warning');
                 goBack();
+                return;
+            }
+            
+            if (!franquiciaActual) {
+                showMessage('❌ Error: no hay zona seleccionada', 'error');
+                volverAZonas();
                 return;
             }
             
             const dni = document.getElementById('dni-input').value.trim();
             
             if (!dni || !/^\d{7,8}$/.test(dni)) {
-                showMessage('❌ DNI inválido. Debe tener 7 u 8 números.', 'error');
+                showMessage('❌ DNI inválido', 'error');
                 return;
             }
             
@@ -1010,16 +969,16 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ENVIANDO...';
             
-            showMessage('⏳ Procesando tu fichaje...', 'loading');
+            showMessage('⏳ Procesando...', 'loading');
             
             const deviceInfo = detectDeviceInfo();
             const ip = await obtenerIP();
             
-            // ✅ VOLVEMOS A FORMDATA - FUNCIONA CON APPS SCRIPT
             const formData = new FormData();
             formData.append('dni', dni);
             formData.append('tipo', currentType);
             formData.append('local', currentLocal);
+            formData.append('zona', franquiciaActual.id);
             formData.append('device_id', deviceId);
             formData.append('ip_publica', ip);
             formData.append('dispositivo_tipo', deviceInfo.tipo);
@@ -1030,15 +989,15 @@
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: formData  // 👈 SIN mode, SIN headers
+                    body: formData
                 });
                 
-                const data = await response.json(); // ✅ PODEMOS LEER LA RESPUESTA
+                const data = await response.json();
                 
                 if (data.success) {
                     let message = `✅ ${data.message}`;
                     if (data.horas) {
-                        message += `<br><small>Horas trabajadas: ${data.horas}</small>`;
+                        message += `<br><small>Horas: ${data.horas}</small>`;
                     }
                     showMessage(message, 'success');
                     
@@ -1056,40 +1015,33 @@
                 
             } catch (error) {
                 console.error('Error:', error);
-                showMessage('❌ Error de conexión. Intentá nuevamente.', 'error');
+                showMessage('❌ Error de conexión', 'error');
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> CONFIRMAR FICHAJE';
             }
         }
         
         // ============================================
-        // FUNCIONES DE UI (TODO IGUAL)
+        // FUNCIONES DE UI
         // ============================================
         
-        function mostrarPantallaRegistro() {
-            document.getElementById('screen-home').classList.remove('active');
-            document.getElementById('screen-dni').classList.remove('active');
-            document.getElementById('screen-device-register').classList.add('active');
-            
-            const deviceIdDisplay = document.getElementById('deviceIdDisplay');
-            if (deviceIdDisplay) {
-                deviceIdDisplay.textContent = deviceId || generarDeviceId();
-            }
-            deshabilitarBotonesFichaje(true);
+        function volverAZonas() {
+            sessionStorage.removeItem('zona_seleccionada_id');
+            sessionStorage.removeItem('zona_seleccionada_nombre');
+            showScreen('screen-zonas');
+            hideMessage();
         }
         
-        function ocultarPantallaRegistro() {
-            document.getElementById('screen-device-register').classList.remove('active');
-            document.getElementById('screen-home').classList.add('active');
-            deshabilitarBotonesFichaje(false);
+        function goBack() {
+            showScreen('screen-home');
+            hideMessage();
         }
         
-        function deshabilitarBotonesFichaje(disabled) {
-            const btns = ['btn-lacroze', 'btn-palermo', 'btn-saavedra', 'btn-salida'];
-            btns.forEach(id => {
-                const btn = document.getElementById(id);
-                if (btn) btn.disabled = disabled;
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
             });
+            document.getElementById(screenId).classList.add('active');
         }
         
         function mostrarLoading(buttonId, texto) {
@@ -1103,7 +1055,7 @@
         function ocultarLoading(buttonId, texto) {
             const btn = document.getElementById(buttonId);
             if (btn) {
-                btn.innerHTML = `<i class="fas fa-check-circle"></i> ${texto}`;
+                btn.innerHTML = `<i class="fas fa-${buttonId === 'btn-login' ? 'sign-in-alt' : 'check-circle'}"></i> ${texto}`;
                 btn.disabled = false;
             }
         }
@@ -1129,66 +1081,6 @@
             location.reload();
         }
         
-        function selectLocal(local) {
-            if (!dispositivoAutorizado) {
-                showMessage('🔐 Dispositivo no autorizado. Registralo primero.', 'warning');
-                return;
-            }
-            
-            currentLocal = local;
-            currentType = 'entrada';
-            
-            const localNames = { 'lacroze': 'LACROZE', 'palermo': 'PALERMO', 'saavedra': 'SAAVEDRA' };
-            
-            const localInfoCard = document.getElementById('local-info');
-            localInfoCard.className = 'local-info-card';
-            localInfoCard.innerHTML = `
-                <h3>Fichaje de <span id="fichaje-type">ENTRADA</span></h3>
-                <div class="local-name" id="current-local">${localNames[local]}</div>
-                <div class="fichaje-type" id="type-badge">ENTRADA</div>
-            `;
-            
-            showScreen('screen-dni');
-            document.getElementById('dni-input').value = '';
-            document.getElementById('dni-input').focus();
-            hideMessage();
-        }
-        
-        function selectSalida() {
-            if (!dispositivoAutorizado) {
-                showMessage('🔐 Dispositivo no autorizado. Registralo primero.', 'warning');
-                return;
-            }
-            
-            currentLocal = 'general';
-            currentType = 'salida';
-            
-            const localInfoCard = document.getElementById('local-info');
-            localInfoCard.className = 'local-info-card salida';
-            localInfoCard.innerHTML = `
-                <h3>Fichaje de <span id="fichaje-type">SALIDA</span></h3>
-                <div class="local-name" id="current-local">DESDE CUALQUIER LUGAR</div>
-                <div class="fichaje-type" id="type-badge">SALIDA</div>
-            `;
-            
-            showScreen('screen-dni');
-            document.getElementById('dni-input').value = '';
-            document.getElementById('dni-input').focus();
-            hideMessage();
-        }
-        
-        function goBack() {
-            showScreen('screen-home');
-            hideMessage();
-        }
-        
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
-        }
-        
         function showMessage(text, type) {
             const messageDiv = document.getElementById('message');
             messageDiv.innerHTML = text;
@@ -1208,7 +1100,22 @@
         async function inicializar() {
             deviceId = generarDeviceId();
             actualizarInfoDispositivo();
-            await validarDispositivo();
+            
+            const franquiciaGuardada = sessionStorage.getItem('franquicia_activa');
+            const registrado = localStorage.getItem('heladerias_device_registered');
+            
+            if (franquiciaGuardada && registrado === 'true') {
+                franquiciaActual = JSON.parse(franquiciaGuardada);
+                dispositivoAutorizado = true;
+                cargarPantallaPrincipal();
+            } else {
+                await cargarZonas();
+                showScreen('screen-zonas');
+                
+                if (franquiciaGuardada) {
+                    sessionStorage.removeItem('franquicia_activa');
+                }
+            }
             
             const dniInput = document.getElementById('dni-input');
             if (dniInput) {
@@ -1224,6 +1131,13 @@
             if (claveInput) {
                 claveInput.addEventListener('keypress', function(event) {
                     if (event.key === 'Enter') registrarDispositivo();
+                });
+            }
+            
+            const claveFranquicia = document.getElementById('clave-franquicia');
+            if (claveFranquicia) {
+                claveFranquicia.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') loginFranquicia();
                 });
             }
         }
