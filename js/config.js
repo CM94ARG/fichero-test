@@ -3,7 +3,7 @@
 // ============================================
 
 const CONFIG = {
-    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyQVKHBWJRI42wGyPEL5sy5w6NcVKGCVHWT6HqPSTq_pK4RmPb_hPjXRqwEeFQSBr8I/exec",
+    SCRIPT_URL: "https://script.google.com/macros/s/AKfycbyO0ZJeyK1eUBI-9D8xTQyxge2sy_dV8iIXWEW5wDoKm5LWeASt0bfXKCgkj8joZ4PD/exec",
     APP_VERSION: "6.0",
     STORAGE_KEYS: {
         DEVICE_ID: 'heladerias_device_id',
